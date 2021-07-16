@@ -1,0 +1,30 @@
+
+
+Disposable chat room
+
+
+- see globally available room
+
+- create room / join room
+     -- global/private
+- enter user
+- chat
+- quit
+
+- help
+- github
+- about
+
+
+
+
+stack : 
+  typescript 
+  skeleton css
+  react
+  router
+  redux-localstorage
+  postgresql  // graphql?
+
+
+
