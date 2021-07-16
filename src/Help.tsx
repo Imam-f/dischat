@@ -1,11 +1,12 @@
 import React from "react";
 
 function Help() {
-    return (
-    <>
+    return <>
         Help
     </>
-    )
 }
+
+// slide show format
+// enter > mkroom > chat > quit
 
 export default Help;

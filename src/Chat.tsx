@@ -1,9 +1,11 @@
 import React from "react";
 
 function Chat() {
-    return (<>
+    return <>
         Chat
-    </>)
+    </>
 }
+
+// Chat wrapper
 
 export default Chat;

@@ -1,9 +1,15 @@
 import React from "react";
 
 function About() {
-    return (<>
+    return <>
         About
-    </>)
+    </>
 }
+
+// icon
+// name
+// email
+// git
+// stack used
 
 export default About;
