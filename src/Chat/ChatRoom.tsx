@@ -2,6 +2,7 @@ import React from "react";
 
 function ChatRoom(prop:any) {
     return <>
+        <br/>
         <button onClick={prop.leave}>Log Out</button>
         <br/>
         {prop.roomData.id} + {prop.roomData.name} + {prop.roomData.creator} + {prop.roomData.code}
