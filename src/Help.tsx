@@ -1,5 +1,5 @@
 import React from "react";
-import Slide1 from "./Slide/slide1"
+import Slide from "./Slide/slide"
 
 function Help() {
     return <>
@@ -7,7 +7,7 @@ function Help() {
         <div>
             <div>prev</div>
             <div>
-                <Slide1/>
+                <Slide num={1}/>
             </div>
             <div>next</div>
             <div>down</div>
