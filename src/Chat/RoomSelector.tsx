@@ -1,9 +1,12 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import RoomItem from "./RoomItem"
 
 function RoomSelector(prop:any) {
     const [room,setRoom] = useState<Array<roomitem>>([]);
-
+    useEffect(() => {
+        getRoom();
+    });
+    
     let getRoom = () => {
         let roomtab : Array<roomitem> = [];
         roomtab.push(new roomitem(

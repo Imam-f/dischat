@@ -2,9 +2,30 @@ import React from "react";
 
 function ChatRoom(prop:any) {
     return <>
+        <button onClick={prop.leave}>Log Out</button>
+        <br/>
         {prop.roomData.id} + {prop.roomData.name} + {prop.roomData.creator} + {prop.roomData.code}
         <br/>
-        <button onClick={prop.leave}>Log Out</button>
+        <br/>
+        <br/>
+
+        <div>
+            <img />
+            <div>Roomname</div>
+            <div>Username</div>
+        </div>
+        <div>
+            <ul>
+                <li><img />Message</li>
+                <li><img />Message</li>
+                <li><img />Message</li>
+            </ul>
+        </div>
+        <div>
+            <div><button>Embedd</button></div>
+            <div><input placeholder="Message"></input></div>
+            <div><button>Send</button></div>
+        </div>
     </>
 }
 

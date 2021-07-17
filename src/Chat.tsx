@@ -2,22 +2,12 @@ import React, {useState} from "react";
 import RoomSelector from "./Chat/RoomSelector";
 import ChatRoom from "./Chat/ChatRoom";
 
-function Chat() {
-    const [isInRoom,setInRoom] = useState(0);
-    const [roomDataState,setRoomDataState] = useState<roomitem>();
-
-    const enterRoom = (room : roomitem) => {
-        setInRoom(1);
-        setRoomDataState(room);
-    }
-    const leaveRoom = () => {
-        setInRoom(0);
-    }
+function Chat(prop:any) {
 
     return <>
         Chat
         <br/>
-        {isInRoom ? <ChatRoom roomData={roomDataState} leave={leaveRoom}/> : <RoomSelector join={enterRoom}/> }
+        {prop.isInRoom ? <ChatRoom roomData={prop.roomDataState} leave={prop.leaveRoom}/> : <RoomSelector join={prop.enterRoom}/> }
     </>
 }
 
