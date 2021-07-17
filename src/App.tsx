@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {BrowserRouter as Router, Switch, 
     Route, Link} from "react-router-dom";
 import {w3cwebsocket as websocket} from "websocket";
@@ -10,14 +10,14 @@ import About from './About';
 import logo from './logo.svg';
 
 
-// const ws = new websocket("ws://localhost:8081");
+const ws = new websocket("ws://localhost:8081");
 
 function App() {
-    const [count, setCount] = useState(0)
-
     return <>
         <Router>
         <div>Header
+            <br/>
+            <img style={{height:"50px",width:"50px"}} src={logo} />
             <ul>
                 <li><Link to="/">Chat</Link></li>
                 <li><Link to="/help">Help</Link></li>
@@ -33,5 +33,7 @@ function App() {
         </Router>
     </>
 }
+
+// todo do header
 
 export default App
