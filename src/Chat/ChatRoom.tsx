@@ -1,8 +1,10 @@
 import React from "react";
 
-function ChatRoom() {
+function ChatRoom(prop:any) {
     return <>
-        Please Chat
+        {prop.roomData.id} + {prop.roomData.name} + {prop.roomData.creator} + {prop.roomData.code}
+        <br/>
+        <button onClick={prop.leave}>Log Out</button>
     </>
 }
 
@@ -12,5 +14,6 @@ function ChatRoom() {
     // text
     // send
     // profile
+
 
 export default ChatRoom;
