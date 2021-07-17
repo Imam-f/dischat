@@ -24,7 +24,6 @@ function App() {
                 <li><Link to="/about">About</Link></li>
             </ul>
         </div>
-            
         <Switch>
             <Route path="/help"><Help/></Route>
             <Route path="/about"><About/></Route>
