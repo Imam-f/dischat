@@ -5,7 +5,7 @@ function RoomSelector(prop:any) {
     const [room,setRoom] = useState<Array<roomitem>>([]);
     useEffect(() => {
         getRoom();
-    });
+    },[]);
     
     let getRoom = () => {
         let roomtab : Array<roomitem> = [];
