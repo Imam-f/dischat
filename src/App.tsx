@@ -10,7 +10,7 @@ import About from './About';
 import logo from './logo.svg';
 
 
-const ws = new websocket("ws://localhost:8081");
+// const ws = new websocket("ws://localhost:8081");
 
 function App() {
     const [count, setCount] = useState(0)
