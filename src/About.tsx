@@ -12,18 +12,17 @@ function About() {
                 <div>
                     <h3>Library used</h3>
                     <ol>
-                        <li><img src="" alt="" />Typescript</li>
-                        <li><img src="" alt="" />Skeleton</li>
-                        <li><img src="" alt="" />ReactJS</li>
-                        <li><img src="" alt="" />React Router</li>
-                        <li><img src="" alt="" />Redux-local-storage</li>
-                        <li><img src="" alt="" />PostgreSQL</li>
-                        <li><img src="" alt="" />Websocket</li>
+                        <li><img src="" alt="" /> Typescript </li>
+                        <li><img src="" alt="" /> Skeleton </li>
+                        <li><img src="" alt="" /> ReactJS </li>
+                        <li><img src="" alt="" /> React Router </li>
+                        <li><img src="" alt="" /> Redux-local-storage </li>
+                        <li><img src="" alt="" /> PostgreSQL </li>
+                        <li><img src="" alt="" /> Websocket </li>
                     </ol>
                 </div>
             </div>
         </div>
-
     </>
 }
 
@@ -32,5 +31,6 @@ function About() {
 // email
 // git
 // stack used
+
 
 export default About;

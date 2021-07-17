@@ -2,9 +2,9 @@ import React from "react";
 
 function Slide(prop:any) {
 
-    if(prop.num == 1) {
+    if(prop.num == 2) {
         return <></>
-    } else if (prop.num == 2) {
+    } else if (prop.num == 3) {
         return <></>
     } else {
         return <></>
