@@ -2,7 +2,7 @@ import React from "react";
 
 function ChatRoom() {
     return <>
-        About
+        Please Chat
     </>
 }
 
