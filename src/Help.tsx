@@ -1,5 +1,5 @@
 import React from "react";
-import Slide from "./Slide/slide"
+import Slide from "./Slide/Slide";
 
 function Help() {
     return <>
