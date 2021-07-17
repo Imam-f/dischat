@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {BrowserRouter as Router, Switch, 
     Route, Link} from "react-router-dom";
-// import {w3cwebsocket as websocket} from "websocket";
+import {w3cwebsocket as websocket} from "websocket";
 
 import Chat from './Chat';
 import Help from './Help';
@@ -10,7 +10,7 @@ import About from './About';
 import logo from './logo.svg';
 
 
-// const ws = new websocket("ws://localhost:8081");
+const ws = new websocket("ws://localhost:8081");
 
 function App() {
     const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == undefined ? false : true );
@@ -63,6 +63,20 @@ class roomitem {
         this.code = code;
     }
 }
+
+ws.onopen = () => {}        // skeleton
+ws.onmessage = (e) => {}    // process event
+ws.onclose = () => {}       // cleanup
+ws.onerror = () => {}       // reconnect
+
+
+
+// message
+    // ask room
+    // enter room
+    // send chat
+    // receive chat
+    // quit room
 
 // todo make header
 // todo loading
