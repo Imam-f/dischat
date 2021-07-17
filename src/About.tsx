@@ -11,6 +11,8 @@ function About() {
                 <div>
                     <h3>Library used</h3>
                     <ul>
+                        <li><img src="" alt="" /> Git </li>
+                        <li><img src="" alt="" /> ViteJS </li>
                         <li><img src="" alt="" /> Typescript </li>
                         <li><img src="" alt="" /> Skeleton </li>
                         <li><img src="" alt="" /> ReactJS </li>
