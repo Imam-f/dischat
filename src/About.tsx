@@ -16,7 +16,6 @@ function About() {
                         <li><img src="" alt="" /> Skeleton </li>
                         <li><img src="" alt="" /> ReactJS </li>
                         <li><img src="" alt="" /> React Router </li>
-                        <li><img src="" alt="" /> Redux-local-storage </li>
                         <li><img src="" alt="" /> PostgreSQL </li>
                         <li><img src="" alt="" /> Websocket </li>
                     </ul>
