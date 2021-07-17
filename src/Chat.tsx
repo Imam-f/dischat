@@ -3,7 +3,6 @@ import RoomSelector from "./Chat/RoomSelector";
 import ChatRoom from "./Chat/ChatRoom";
 
 function Chat(prop:any) {
-
     return <>
         Chat
         <br/>

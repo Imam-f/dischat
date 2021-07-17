@@ -31,6 +31,10 @@ function RoomSelector(prop:any) {
     return <>
         <div>
             <button onClick={getRoom}>Refresh</button>
+            <button onClick={getRoom}>Add room</button>
+            <input />
+            <button onClick={getRoom}>Search</button>
+            
             <table>
                 <thead>
                     <tr>
@@ -45,6 +49,7 @@ function RoomSelector(prop:any) {
                 }
                 </tbody>
             </table>
+            
         </div>
     </>
 }
