@@ -13,7 +13,7 @@ import logo from './logo.svg';
 // const ws = new websocket("ws://localhost:8081");
 
 function App() {
-    const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") ?? true );
+    const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == undefined ? false : true );
     const [roomDataState,setRoomDataState] = useState<roomitem>( window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? "") );
 
     const enterRoom = (room : roomitem) => {
