@@ -6,12 +6,11 @@ function About() {
             <h1><img src="" alt="" /> Dischat</h1>
             <h2>Mohamad Imam Firdaus</h2>
             <div>
-                <p><img src="" alt="" /> email : mohamadimamfirdaus17@gmail.com</p>
-                <p><img src="" alt="" /> git : Imam-f</p>
+                <p><img src="" alt="" /> Email : mohamadimamfirdaus17@gmail.com</p>
+                <p><img src="" alt="" /> Github : Imam-f</p>
                 <div>
                     <h3>Library used</h3>
                     <ul>
-                        <li><img src="" alt="" /> Git </li>
                         <li><img src="" alt="" /> ViteJS </li>
                         <li><img src="" alt="" /> Typescript </li>
                         <li><img src="" alt="" /> Skeleton </li>
