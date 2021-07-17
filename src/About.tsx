@@ -25,6 +25,9 @@ function About() {
     </>
 }
 
+// todo add item
+// todo change to link in next tab
+
 // icon
 // name
 // email
