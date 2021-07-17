@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {BrowserRouter as Router, Switch, 
     Route, Link} from "react-router-dom";
-import {w3cwebsocket as websocket} from "websocket";
+// import {w3cwebsocket as websocket} from "websocket";
 
 import Chat from './Chat';
 import Help from './Help';
@@ -10,22 +10,22 @@ import About from './About';
 import logo from './logo.svg';
 
 
-const ws = new websocket("ws://localhost:8081");
+// const ws = new websocket("ws://localhost:8081");
 
 function App() {
-    const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == "1" ? true : false );
-    const [roomDataState,setRoomDataState] = useState<roomitem>( JSON.parse(window.localStorage.getItem("room") ?? "" ));
+    const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == "true" ? true : false );
+    const [roomDataState,setRoomDataState] = useState<roomitem>( window.localStorage.getItem("room") == "" ? {} : JSON.parse(window.localStorage.getItem("room") ?? "") );
 
     const enterRoom = (room : roomitem) => {
         setInRoom(true);
         setRoomDataState(room);
-        window.localStorage.setItem("inRoom",isInRoom.toString());
-        window.localStorage.setItem("room",JSON.stringify(roomDataState));
+        window.localStorage.setItem("inRoom","true");
+        window.localStorage.setItem("room",JSON.stringify(room));
     }
     const leaveRoom = () => {
         setInRoom(false);
-        window.localStorage.setItem("inRoom",isInRoom.toString());
-        window.localStorage.setItem("room",JSON.stringify(roomDataState));
+        window.localStorage.setItem("inRoom","false");
+        window.localStorage.setItem("room","");
     }
 
     return <>
