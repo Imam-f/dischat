@@ -13,15 +13,19 @@ import logo from './logo.svg';
 const ws = new websocket("ws://localhost:8081");
 
 function App() {
-    const [isInRoom,setInRoom] = useState(0);
-    const [roomDataState,setRoomDataState] = useState<roomitem>();
+    const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == "1" ? true : false );
+    const [roomDataState,setRoomDataState] = useState<roomitem>( JSON.parse(window.localStorage.getItem("room") ?? "" ));
 
     const enterRoom = (room : roomitem) => {
-        setInRoom(1);
+        setInRoom(true);
         setRoomDataState(room);
+        window.localStorage.setItem("inRoom",isInRoom.toString());
+        window.localStorage.setItem("room",JSON.stringify(roomDataState));
     }
     const leaveRoom = () => {
-        setInRoom(0);
+        setInRoom(false);
+        window.localStorage.setItem("inRoom",isInRoom.toString());
+        window.localStorage.setItem("room",JSON.stringify(roomDataState));
     }
 
     return <>
