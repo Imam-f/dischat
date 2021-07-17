@@ -22,7 +22,7 @@ function ChatRoom(prop:any) {
             </ul>
         </div>
         <div>
-            <div><button>Embedd</button></div>
+            <div>Embedd</div>
             <div><input placeholder="Message"></input></div>
             <div><button>Send</button></div>
         </div>
