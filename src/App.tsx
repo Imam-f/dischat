@@ -14,7 +14,7 @@ import logo from './logo.svg';
 
 function App() {
     const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == "true" ? true : false );
-    const [roomDataState,setRoomDataState] = useState<roomitem>( window.localStorage.getItem("room") == "" ? {} : JSON.parse(window.localStorage.getItem("room") ?? "") );
+    const [roomDataState,setRoomDataState] = useState<roomitem>( window.localStorage.getItem("room") == "" ? null : JSON.parse(window.localStorage.getItem("room") ?? "") );
 
     const enterRoom = (room : roomitem) => {
         setInRoom(true);
