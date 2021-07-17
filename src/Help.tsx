@@ -10,7 +10,7 @@ function Help() {
         setPage((page+1) % numSlide);
     }
     const subone = () => {
-        setPage((page+2) % numSlide)
+        setPage((page + numSlide - 1) % numSlide)
     }
     const expand = () => {
         let notExpand = !isExpandPage;
@@ -20,16 +20,16 @@ function Help() {
 
     
     return <>
-        Help {slides}
+        Help
         <div>
-            <div onClick={subone}>prev</div>
+            { isExpandPage ? <></> : <div onClick={subone}>prev</div> }
             <div> { isExpandPage ? slides.map(
-                        (item, index) => {
-                            return <><Slide num={item}/><br/></>
+                        (item, key) => {
+                            return <Slide key={key} num={item}/>
                         }) : <Slide num={page}/> }
             </div>
-            <div onClick={addone}>next</div>
-            <div onClick={expand}>down</div>
+            { isExpandPage ? <></> : <div onClick={addone}>next</div> }
+            { isExpandPage ? <div onClick={expand}>up</div> : <div onClick={expand}>down</div> }
         </div>
     </>
 }
