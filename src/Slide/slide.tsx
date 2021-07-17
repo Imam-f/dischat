@@ -3,11 +3,11 @@ import React from "react";
 function Slide(prop:any) {
 
     if(prop.num == 2) {
-        return <></>
+        return <>Content {prop.num}</>
     } else if (prop.num == 3) {
-        return <></>
+        return <>Content {prop.num}</>
     } else {
-        return <></>
+        return <>Content {prop.num}</>
     }
     
 }

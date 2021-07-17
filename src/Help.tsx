@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Slide from "./Slide/Slide";
 
 function Help() {
+    const [page, setPage] = useState(1);
+    const addone = () => {
+        setPage((page+1)%3)
+    }
+    const subone = () => {
+        setPage((page+2)%3)
+    }
+    
     return <>
         Help
         <div>
-            <div>prev</div>
+            <div onClick={subone}>prev</div>
             <div>
-                <Slide num={1}/>
+                <Slide num={page}/>
             </div>
-            <div>next</div>
+            <div onClick={addone}>next</div>
             <div>down</div>
         </div>
     </>
