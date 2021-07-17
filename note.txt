@@ -23,7 +23,7 @@ stack :
   skeleton css
   react
   router
-  redux-localstorage
+  localstorage
   postgresql  // graphql?
 
 
