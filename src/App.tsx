@@ -13,8 +13,8 @@ import logo from './logo.svg';
 // const ws = new websocket("ws://localhost:8081");
 
 function App() {
-    const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == "true" ? true : false );
-    const [roomDataState,setRoomDataState] = useState<roomitem>( window.localStorage.getItem("room") == "" ? null : JSON.parse(window.localStorage.getItem("room") ?? "") );
+    const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") ?? true );
+    const [roomDataState,setRoomDataState] = useState<roomitem>( window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? "") );
 
     const enterRoom = (room : roomitem) => {
         setInRoom(true);
@@ -24,8 +24,8 @@ function App() {
     }
     const leaveRoom = () => {
         setInRoom(false);
-        window.localStorage.setItem("inRoom","false");
-        window.localStorage.setItem("room","");
+        window.localStorage.removeItem("inRoom");
+        window.localStorage.removeItem("room");
     }
 
     return <>
