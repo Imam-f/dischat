@@ -34,11 +34,11 @@ function RoomSelector(prop:any) {
     return <>
         <div>
             <div>
-                <input placeholder="Add name"/>
+                <input type="search" placeholder="Add name"/>
                 <button>Set</button>
             </div>
             <button onClick={getRoom}>Add room</button>
-            <input />
+            <input type="search"/>
             <button onClick={getRoom}>Search</button>
             <button onClick={getRoom}>Refresh</button>
             

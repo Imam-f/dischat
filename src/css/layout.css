@@ -1,5 +1,5 @@
 .header {
-   height: 50vh;
+   height: 30vh;
 
    display : flex;
    flex-direction : row;
@@ -27,8 +27,8 @@
 }
 
 .aboutwrapper {
-   margin-top: 40px;
-   margin-bottom: 20vh;
+   margin-top: 10vh;
+   margin-bottom: 10vh;
    margin-left: 15vw;
    margin-right: 15vw;
 }
@@ -59,4 +59,86 @@
 
 .helpnav span:hover {
    background-color: red;
-}  
+}
+
+.chatbox {
+   width:100%;
+   display: grid;
+   grid-gap: 10px;
+   grid-template-columns: 1fr 5fr 2fr;
+   grid-template-areas: 
+      "a b c"
+      "d d d"
+      "f f g";
+}
+
+.a {
+   grid-area: a;
+   width: 5em;
+   height: 5em;
+   display: flex;
+   justify-content: center ;
+   align-items: center;
+}
+.b {
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+   grid-area: b;
+}
+.c {
+   grid-area: c;
+   display: flex;
+   justify-content: center ;
+   align-items: center;
+}
+.d {
+   grid-area: d;
+   display: flex;
+   justify-content: flex-end;
+   flex-direction: column;
+   height: 40vh;
+   overflow: scroll;
+}
+.d > div {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   padding-top: 10px;
+   padding-bottom: 10px;
+   padding-left: 4vw;
+   padding-right: 4vw;
+   display: block;
+   width: 100% - 8vw;
+   background-color: gray;
+   margin-bottom: 6px
+}
+.d > div:nth-child(2) {
+   background-color: blue;
+   text-align: right;
+}
+/* .e {
+   grid-area: e;
+   display: flex;
+   justify-content: center ;
+   align-items: center;
+} */
+.f {
+   grid-area: f;
+   display: flex;
+   justify-content: center ;
+   align-items: center;
+}
+.f > input {
+   width: 100%;
+}
+.g {
+   grid-area: g;
+   display: flex;
+   justify-content: center ;
+   align-items: center;
+}
+.g > button {
+   width: 100%;
+}

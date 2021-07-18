@@ -20,7 +20,7 @@ function Help() {
 
     
     return <>
-        Help
+        <div style={{margin : "0 0 0 10px"}}>Help</div>
         <div>
             <div> { isExpandPage ? slides.map(
                 (item, key) => {

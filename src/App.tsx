@@ -53,12 +53,11 @@ function App() {
     return <>
         <Router>
         <header className="header">
-            <div className="appLogo"><img style={{height:"8em",width:"8em"}} src={logo} /><p className="titlename">Dischat</p></div>
-            {/*<ul>
-                <li><Link to="/">Chat</Link></li>
-                <li><Link to="/help">Help</Link></li>
-                <li><Link to="/about">About</Link></li>
-            </ul>*/}
+            <div className="appLogo">
+                <img style={{height:"8em",width:"8em"}} src={logo} />
+                <p className="titlename">Dischat</p>
+                <div style={{position:"relative",top:"50px",left:"-170px"}}>Made with react</div>
+            </div>
             <div className="tabs">
                 <div><Link to="/">Chat</Link></div>
                 <div><Link to="/help">Help</Link></div>

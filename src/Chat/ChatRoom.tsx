@@ -11,24 +11,21 @@ function ChatRoom(prop:any) {
         <br/>
         <br/>
         
-        <div className="container" style={{width: "70%"}}>
-            <div className="row">
-                <img src={logo} className="one columns"/>
-                <div className="seven columns">Roomname</div>
-                <div className="four columns">Username</div>
+        <div className="chatbox">
+            <img src={logo} className="a"/>
+            <div className="b">Username</div>
+            <div className="c">Room</div>
+
+            <div className="d">
+                <div><img />Message</div>
+                <div><img />Message</div>
+                <div><img />Message</div>
+                <div><img />Message</div>
+                <div><img />Message</div>
             </div>
-            <div className="row">
-                <ul className="twelve columns">
-                    <li><img />Message</li>
-                    <li><img />Message</li>
-                    <li><img />Message</li>
-                </ul>
-            </div>
-            <div className="row">
-                <div className="four columns">Embedd</div>
-                <div className="six columns"><input placeholder="Message"></input></div>
-                <div className="two columns"><button>Send</button></div>
-            </div>
+
+            <div className="f"><input type="search" placeholder="Message"></input></div>
+            <div className="g"><button>Send</button></div>
         </div>
     </>
 }
