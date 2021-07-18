@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react";
 import { roomitem } from "../type/roomitem";
 import RoomItem from "./RoomItem"
+import { messageitem } from "../type/messageitem"
 
 function RoomSelector(prop:any) {
     const [room,setRoom] = useState<Array<roomitem>>([]);
+
     useEffect(() => {
         getRoom();
     },[]);

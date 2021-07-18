@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
-import {roomitem} from './type/roomitem';
 import {BrowserRouter as Router, Switch, 
     Route, Link} from "react-router-dom";
 import {w3cwebsocket as websocket} from "websocket";
+    
+import {roomitem} from './type/roomitem';
+import * as msg from './type/messageitem';
 
 import Chat from './Chat';
 import Help from './Help';
@@ -57,10 +59,24 @@ function App() {
 
 
 
-ws.onopen = () => {}        // skeleton
-ws.onmessage = (e) => {}    // process event
-ws.onclose = () => {}       // cleanup
-ws.onerror = () => {}       // reconnect
+// ws.onopen = () => {}        // request room
+ws.onmessage = (e) => {
+    let messageType : string = msg.messageType(e);
+
+    switch (messageType) {
+        case "New Room":
+        case "Enter Room Request":
+        case "Enter Room Success":
+        case "Enter Room Failed":
+        case "New Message":
+        case "Room Empty":
+        default:
+            break;
+    }
+
+}    // process event
+// ws.onclose = () => {}       // cleanup
+// ws.onerror = () => {}       // reconnect
 
 
 
@@ -73,5 +89,6 @@ ws.onerror = () => {}       // reconnect
 
 // todo make header
 // todo loading
+// // todo global chat
 
 export default App
