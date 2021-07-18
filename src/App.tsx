@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
+import {roomitem} from './type/roomitem';
 import {BrowserRouter as Router, Switch, 
     Route, Link} from "react-router-dom";
 import {w3cwebsocket as websocket} from "websocket";
-
-import { roomitem } from './Type/roomitem';
 
 import Chat from './Chat';
 import Help from './Help';
 import About from './About';
 
 import logo from './logo.svg';
+
+import "./css/skeleton.css"
+import "./css/normalize.css"
 
 
 const ws = new websocket("ws://localhost:8081");

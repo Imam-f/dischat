@@ -1,5 +1,5 @@
 import React from "react";
-import { roomitem, roomitemcomponent } from "../Type/roomitem";
+import { roomitemcomponent } from "../type/roomitem";
 
 function RoomItem(prop:roomitemcomponent) {
     return <tr>

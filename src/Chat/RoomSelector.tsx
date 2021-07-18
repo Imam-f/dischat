@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { roomitem } from "../Type/roomitem";
+import { roomitem } from "../type/roomitem";
 import RoomItem from "./RoomItem"
 
 function RoomSelector(prop:any) {
@@ -31,6 +31,10 @@ function RoomSelector(prop:any) {
     
     return <>
         <div>
+            <div>
+                <input placeholder="Add name"/>
+                <button>Set</button>
+            </div>
             <button onClick={getRoom}>Refresh</button>
             <button onClick={getRoom}>Add room</button>
             <input />
@@ -56,6 +60,7 @@ function RoomSelector(prop:any) {
 }
 
 
+// flyout if no name
 // search
 // tablename
     // id name creator size join
