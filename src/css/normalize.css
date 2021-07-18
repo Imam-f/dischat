@@ -20,6 +20,10 @@ body {
   margin: 0;
 }
 
+::-webkit-scrollbar {
+  position: static;
+}
+
 /* HTML5 display definitions
    ========================================================================== */
 
