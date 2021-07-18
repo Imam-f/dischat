@@ -22,12 +22,12 @@ function Help() {
     return <>
         Help
         <div>
-            { isExpandPage ? <></> : <div onClick={subone}>prev</div> }
             <div> { isExpandPage ? slides.map(
-                        (item, key) => {
-                            return <Slide key={key} num={item}/>
-                        }) : <Slide num={page}/> }
+                (item, key) => {
+                    return <Slide key={key} num={item}/>
+                }) : <Slide num={page}/> }
             </div>
+            { isExpandPage ? <></> : <div onClick={subone}>prev</div> }
             { isExpandPage ? <></> : <div onClick={addone}>next</div> }
             { isExpandPage ? <div onClick={expand}>up</div> : <div onClick={expand}>down</div> }
         </div>
