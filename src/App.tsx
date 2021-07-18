@@ -44,7 +44,10 @@ function App() {
         <Switch>
             <Route path="/help"><Help/></Route>
             <Route path="/about"><About/></Route>
-            <Route path="/"><Chat isInRoom={isInRoom} roomDataState={roomDataState} leaveRoom={leaveRoom} enterRoom={enterRoom} /></Route>
+            <Route path="/">
+                <Chat isInRoom={isInRoom} roomDataState={roomDataState} 
+                    leaveRoom={leaveRoom} enterRoom={enterRoom} />
+            </Route>
         </Switch>
         </Router>
     </>

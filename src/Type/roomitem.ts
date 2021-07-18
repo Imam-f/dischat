@@ -11,3 +11,12 @@ export class roomitem {
         this.code = code;
     }
 };
+
+
+export class roomitemcomponent {
+    items: roomitem;
+    join: any;
+    constructor(items:roomitem) {
+        this.items = items;
+    }
+}

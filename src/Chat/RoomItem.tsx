@@ -1,13 +1,5 @@
 import React from "react";
-import { roomitem } from "../Type/roomitem";
-
-class roomitemcomponent {
-    items: roomitem;
-    join: any;
-    constructor(items:roomitem) {
-        this.items = items;
-    }
-}
+import { roomitem, roomitemcomponent } from "../Type/roomitem";
 
 function RoomItem(prop:roomitemcomponent) {
     return <tr>
