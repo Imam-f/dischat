@@ -3,6 +3,8 @@ import {BrowserRouter as Router, Switch,
     Route, Link} from "react-router-dom";
 import {w3cwebsocket as websocket} from "websocket";
 
+import { roomitem } from './Type/roomitem';
+
 import Chat from './Chat';
 import Help from './Help';
 import About from './About';
@@ -49,20 +51,6 @@ function App() {
 }
 
 
-
-class roomitem {
-    id: number;
-    name: string;
-    creator: string;
-    code: string;
-
-    constructor(id: number, name: string, creator: string, code: string) {
-        this.id = id;
-        this.name = name;
-        this.creator = creator;
-        this.code = code;
-    }
-}
 
 ws.onopen = () => {}        // skeleton
 ws.onmessage = (e) => {}    // process event
