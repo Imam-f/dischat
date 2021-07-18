@@ -98,12 +98,16 @@
    justify-content: flex-end;
    flex-direction: column;
    height: 40vh;
-   overflow: scroll;
 }
 .d > div {
+   height: 100%;
+   width: 100%;
+   overflow: scroll;
+}
+.d > div > div {
    display: flex;
-   justify-content: center;
-   align-items: center;
+   justify-content: flex-end;
+   align-items: flex-end;
 
    padding-top: 10px;
    padding-bottom: 10px;
@@ -111,19 +115,16 @@
    padding-right: 4vw;
    display: block;
    width: 100% - 8vw;
-   background-color: gray;
-   margin-bottom: 6px
+   margin-bottom: 6px;
+
+   border-radius: 5px;
+   border-style: solid;
+   border-width: 2px;
 }
-.d > div:nth-child(2) {
-   background-color: blue;
+.msgself {
+   border-color: rgb(95, 244, 255);
    text-align: right;
 }
-/* .e {
-   grid-area: e;
-   display: flex;
-   justify-content: center ;
-   align-items: center;
-} */
 .f {
    grid-area: f;
    display: flex;

@@ -56,7 +56,7 @@ function App() {
             <div className="appLogo">
                 <img style={{height:"8em",width:"8em"}} src={logo} />
                 <p className="titlename">Dischat</p>
-                <div style={{position:"relative",top:"50px",left:"-170px"}}>Made with react</div>
+                <div style={{position:"relative",top:"50px",left:"-170px",opacity:"60%"}}>Made with react</div>
             </div>
             <div className="tabs">
                 <div><Link to="/">Chat</Link></div>

@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../logo.svg";
+import MessageRenderer from "./MessageRenderer";
 
 function ChatRoom(prop:any) {
     return <>
@@ -17,11 +18,9 @@ function ChatRoom(prop:any) {
             <div className="c">Room</div>
 
             <div className="d">
-                <div><img />Message</div>
-                <div><img />Message</div>
-                <div><img />Message</div>
-                <div><img />Message</div>
-                <div><img />Message</div>
+                <div>
+                    <MessageRenderer message={"prop.message"}/>
+                </div>
             </div>
 
             <div className="f"><input type="search" placeholder="Message"></input></div>

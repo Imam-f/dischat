@@ -40,8 +40,12 @@ function RoomSelector(prop:any) {
             <button onClick={getRoom}>Add room</button>
             <input type="search"/>
             <button onClick={getRoom}>Search</button>
+            <br/>
             <button onClick={getRoom}>Refresh</button>
             
+            <br/>
+            <br/>
+            <br/>
             <table>
                 <thead>
                     <tr>
