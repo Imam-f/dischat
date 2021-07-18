@@ -27,9 +27,11 @@ function Help() {
                     return <Slide key={key} num={item}/>
                 }) : <Slide num={page}/> }
             </div>
-            { isExpandPage ? <></> : <div onClick={subone}>prev</div> }
-            { isExpandPage ? <></> : <div onClick={addone}>next</div> }
-            { isExpandPage ? <div onClick={expand}>up</div> : <div onClick={expand}>down</div> }
+            <div className="helpnav">
+                { isExpandPage ? <></> : <span onClick={subone}>prev</span> }
+                { isExpandPage ? <span onClick={expand}>up</span> : <span onClick={expand}>down</span> }
+                { isExpandPage ? <></> : <span onClick={addone}>next</span> }
+            </div>
         </div>
     </>
 }

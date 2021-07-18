@@ -2,11 +2,11 @@ import React from "react";
 
 function Slide(prop:any) {
     if(prop.num == 1) {
-        return <>Content {prop.num} <br/></>
+        return <><div className="helpcontent">Content {prop.num} <br/></div></>
     } else if (prop.num == 2) {
-        return <>Content {prop.num} <br/></>
+        return <><div className="helpcontent">Content {prop.num} <br/></div></>
     } else {
-        return <>Content Zero <br/></>
+        return <><div className="helpcontent">Content Zero <br/></div></>
     }
 }
 
