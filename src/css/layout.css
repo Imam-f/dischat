@@ -1,0 +1,30 @@
+.header {
+   height: 50vh;
+   
+   display : flex;
+   flex-direction : row;
+   justify-content: space-between;
+   align-items: stretch;
+}
+
+.appLogo {
+   display: flex;
+   align-items: center;
+}
+
+.tabs {
+    /* Center the content */
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    width: 20rem;
+}
+
+.titlename {
+   font-size: 5rem;
+   margin: 0;
+}
+
+.aboutwrapper {
+   margin: 80px;
+}

@@ -14,14 +14,30 @@ import logo from './logo.svg';
 
 import "./css/skeleton.css"
 import "./css/normalize.css"
+import "./css/layout.css"
 
-
-const ws = new websocket("ws://localhost:8081");
 
 function App() {
     const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == undefined ? false : true );
     const [roomDataState,setRoomDataState] = useState<roomitem>( window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? "") );
+    const [messageList,setMessageList] = useState<Array<msg.messageitem>>([]);
 
+    const ws = new websocket("ws://localhost:8081");
+    ws.onmessage = (e) => {
+        let messageType : string = msg.messageType(e);
+    
+        switch (messageType) {
+            case "NewRoom":
+            case "EnterRoom":
+            case "NewMessage":
+            default:
+                break;
+        }
+    }
+
+    const getRoom = () => {
+        
+    }
     const enterRoom = (room : roomitem) => {
         setInRoom(true);
         setRoomDataState(room);
@@ -36,15 +52,19 @@ function App() {
 
     return <>
         <Router>
-        <div>Header
-            <br/>
-            <img style={{height:"50px",width:"50px"}} src={logo} />
-            <ul>
+        <header className="header">
+            <div className="appLogo"><img style={{height:"8em",width:"8em"}} src={logo} /><p className="titlename">Dischat</p></div>
+            {/*<ul>
                 <li><Link to="/">Chat</Link></li>
                 <li><Link to="/help">Help</Link></li>
                 <li><Link to="/about">About</Link></li>
-            </ul>
-        </div>
+            </ul>*/}
+            <div className="tabs">
+                <div><Link to="/">Chat</Link></div>
+                <div><Link to="/help">Help</Link></div>
+                <div><Link to="/about">About</Link></div>
+            </div>
+        </header>
         <Switch>
             <Route path="/help"><Help/></Route>
             <Route path="/about"><About/></Route>
@@ -58,23 +78,7 @@ function App() {
 }
 
 
-
 // ws.onopen = () => {}        // request room
-ws.onmessage = (e) => {
-    let messageType : string = msg.messageType(e);
-
-    switch (messageType) {
-        case "New Room":
-        case "Enter Room Request":
-        case "Enter Room Success":
-        case "Enter Room Failed":
-        case "New Message":
-        case "Room Empty":
-        default:
-            break;
-    }
-
-}    // process event
 // ws.onclose = () => {}       // cleanup
 // ws.onerror = () => {}       // reconnect
 

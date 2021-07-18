@@ -37,10 +37,10 @@ function RoomSelector(prop:any) {
                 <input placeholder="Add name"/>
                 <button>Set</button>
             </div>
-            <button onClick={getRoom}>Refresh</button>
             <button onClick={getRoom}>Add room</button>
             <input />
             <button onClick={getRoom}>Search</button>
+            <button onClick={getRoom}>Refresh</button>
             
             <table>
                 <thead>

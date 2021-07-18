@@ -2,7 +2,7 @@ import React from "react";
 
 function About() {
     return <>
-        <div>
+        <div className="aboutwrapper">
             <h1><img src="" alt="" /> Dischat</h1>
             <h2>Mohamad Imam Firdaus</h2>
             <div>
