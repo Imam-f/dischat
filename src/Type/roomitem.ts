@@ -20,3 +20,10 @@ export class roomitemcomponent {
         this.items = items;
     }
 }
+
+export class roomlist {
+    rooms: string[];
+    constructor(rooms: string[]) {
+        this.rooms = rooms;
+    }
+}

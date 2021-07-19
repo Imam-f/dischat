@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
-import { roomitem } from "../type/roomitem";
 import RoomItem from "./RoomItem"
-import { messageitem } from "../type/messageitem"
+// import { roomitem } from "../type/roomitem";
+// import { messageitem } from "../type/messageitem"
 
 function RoomSelector(prop:any) {
     //const [room,setRoom] = useState<Array<roomitem>>([]);
@@ -12,26 +12,23 @@ function RoomSelector(prop:any) {
     // make={prop.makeRoom} 
     // join={prop.enterRoom}
 
-    prop.list = () => {}
-    prop.make = () => {}
     const searchRoom = () => {}
-    
+
     return <>
         <div>
             <div>
                 <input type="search" placeholder="Add name"/>
                 <button>Set</button>
             </div>
-            <button onClick={prop.getRoom}>Add room</button>
+
             <input type="search"/>
             <button onClick={searchRoom}>Search</button>
-            <br/>
-            <button onClick={prop.getRoom}>Refresh</button>
+            <button onClick={prop.make}>Add room</button>
 
             <br/>
-            <br/>
-            <br/>
-            
+            <button onClick={prop.list}>Refresh</button>
+            <br/><br/><br/>
+
             <table>
                 <thead>
                     <tr>

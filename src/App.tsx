@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Switch,
     Route, Link} from "react-router-dom";
 import {w3cwebsocket as websocket} from "websocket";
     
-import {roomitem} from './type/roomitem';
+import {roomitem,roomlist} from './type/roomitem';
 import * as msg from './type/messageitem';
 import {useritem} from './type/useritem';
 
@@ -21,6 +21,8 @@ import "./css/layout.css"
 function App() {
     const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == undefined ? false : true );
     const [roomDataState,setRoomDataState] = useState<roomitem>( window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? "") );
+    
+    const [roomList,setRoomList] = useState<roomlist>();
     const [messageList,setMessageList] = useState<Array<msg.messageitem>>([]);
     const [user,setUser] = useState<useritem>();
 
@@ -37,8 +39,15 @@ function App() {
         }
     }
 
-    const getRoom = () => {}
-    const makeRoom = () => {}
+    const getRoom = () => {
+        // comm with websocket
+        let room = new roomlist(["aaa","aaaa"])
+        setRoomList(room);
+    }
+    const makeRoom = () => {
+        // makeroom
+        // enterrrom
+    }
     const enterRoom = (room : roomitem) => {
         setInRoom(true);
         setRoomDataState(room);
