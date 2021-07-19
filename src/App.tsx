@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {BrowserRouter as Router, Switch, 
     Route, Link} from "react-router-dom";
 import {w3cwebsocket as websocket} from "websocket";
@@ -19,6 +19,7 @@ import "./css/normalize.css"
 import "./css/layout.css"
 
 
+var globalRoomList : Array<roomitem> = [];
 const ws = new websocket("ws://localhost:8081");
 ws.onmessage = (e) => {
     let messageType : string = e.toString();
@@ -32,6 +33,8 @@ ws.onmessage = (e) => {
     }
 }
 
+
+
 function App() {
     const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == undefined ? false : true );
     const [roomDataState,setRoomDataState] = useState<roomitem>( window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? "") );
@@ -39,17 +42,20 @@ function App() {
     const [roomList,setRoomList] = useState<Array<roomitem>>([]);
     const [messageList,setMessageList] = useState<messageitem>(new messageitem("a",["a","coeg","coba"]));
     const [user,setUser] = useState<useritem>();
+
+    useEffect(() => {
+        getRoom();
+    },[])
     
     const getRoom = () => {
         // comm with websocket
         let room : Array<roomitem> = [];
-        room.push(new roomitem(1,"aaa","aaaa","aaaaa"));
-        room.push(new roomitem(2,"aa","aaaa","aaaaa"));
-        room.push(new roomitem(3,"aafsdfa","aaaa","aaaaa"));
-        room.push(new roomitem(4,"kjdsaaa","aaaa","aaaaa"));
-        
+        for(let i=0; i<Math.random()*10; i++){
+            room.push(new roomitem(i,"a".repeat(Math.random()*5) + "a","aaaa","aaaaa"));
+        }
         console.log("room",room);
-        setRoomList(room);
+        globalRoomList = room;
+        setRoomList(globalRoomList);
     }
     const makeRoom = () => {
         // makeroom
@@ -97,10 +103,11 @@ function App() {
 }
 
 
+
+
 // ws.onopen = () => {}        // request room
 // ws.onclose = () => {}       // cleanup
 // ws.onerror = () => {}       // reconnect
-
 
 
 // message
@@ -110,8 +117,11 @@ function App() {
     // receive chat
     // quit room
 
+
 // todo make header
 // todo loading
 // // todo global chat
+
+
 
 export default App
