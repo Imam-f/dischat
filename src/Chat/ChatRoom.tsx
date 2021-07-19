@@ -8,10 +8,10 @@ function ChatRoom(prop:any) {
     // leave
     // messageStore
 
-    const [message, getMessage] = useState<messageitem>();
-    prop.messageStore = (m:any) => {
-        getMessage(m);
-    }
+    const [message, getMessage] = useState<messageitem>(
+        new messageitem("a",["bb","ccc"])
+    );
+    // prop.messageStore();
 
     return <>
         <br/>
@@ -29,7 +29,7 @@ function ChatRoom(prop:any) {
 
             <div className="d">
                 <div>
-                    <MessageRenderer message={message}/>
+                    <MessageRenderer message={prop.messageList}/>
                 </div>
             </div>
 

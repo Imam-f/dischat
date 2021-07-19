@@ -3,8 +3,9 @@ import {BrowserRouter as Router, Switch,
     Route, Link} from "react-router-dom";
 import {w3cwebsocket as websocket} from "websocket";
     
-import {roomitem,roomlist} from './type/roomitem';
-import * as msg from './type/messageitem';
+// import {roomitem,roomlist} from './type/roomitem';
+import {roomitem} from './type/roomitem';
+import {messageitem} from './type/messageitem';
 import {useritem} from './type/useritem';
 
 import Chat from './Chat';
@@ -18,30 +19,36 @@ import "./css/normalize.css"
 import "./css/layout.css"
 
 
+const ws = new websocket("ws://localhost:8081");
+ws.onmessage = (e) => {
+    let messageType : string = e.toString();
+
+    switch (messageType) {
+        case "RoomList":
+        case "EnterRoom":
+        case "NewMessage":
+        default:
+            break;
+    }
+}
+
 function App() {
     const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == undefined ? false : true );
     const [roomDataState,setRoomDataState] = useState<roomitem>( window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? "") );
     
-    const [roomList,setRoomList] = useState<roomlist>();
-    const [messageList,setMessageList] = useState<Array<msg.messageitem>>([]);
+    const [roomList,setRoomList] = useState<Array<roomitem>>([]);
+    const [messageList,setMessageList] = useState<messageitem>(new messageitem("a",["a","coeg","coba"]));
     const [user,setUser] = useState<useritem>();
-
-    const ws = new websocket("ws://localhost:8081");
-    ws.onmessage = (e) => {
-        let messageType : string = msg.messageType(e);
     
-        switch (messageType) {
-            case "RoomList":
-            case "EnterRoom":
-            case "NewMessage":
-            default:
-                break;
-        }
-    }
-
     const getRoom = () => {
         // comm with websocket
-        let room = new roomlist(["aaa","aaaa"])
+        let room : Array<roomitem> = [];
+        room.push(new roomitem(1,"aaa","aaaa","aaaaa"));
+        room.push(new roomitem(2,"aa","aaaa","aaaaa"));
+        room.push(new roomitem(3,"aafsdfa","aaaa","aaaaa"));
+        room.push(new roomitem(4,"kjdsaaa","aaaa","aaaaa"));
+        
+        console.log("room",room);
         setRoomList(room);
     }
     const makeRoom = () => {
@@ -59,8 +66,6 @@ function App() {
         window.localStorage.removeItem("inRoom");
         window.localStorage.removeItem("room");
     }
-
-    const messageStore = () => {}
 
     return <>
         <Router>
@@ -80,10 +85,11 @@ function App() {
             <Route path="/help"><Help/></Route>
             <Route path="/about"><About/></Route>
             <Route path="/">
-                <Chat isInRoom={isInRoom} roomDataState={roomDataState} 
+                <Chat isInRoom={isInRoom} roomDataState={roomDataState}
+                    roomList = {roomList}
                     getRoom={getRoom} makeRoom={makeRoom}
                     leaveRoom={leaveRoom} enterRoom={enterRoom} 
-                    messageStore={messageStore}/>
+                    messageList={messageList}/>
             </Route>
         </Switch>
         </Router>

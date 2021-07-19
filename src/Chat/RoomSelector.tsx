@@ -4,13 +4,6 @@ import RoomItem from "./RoomItem"
 // import { messageitem } from "../type/messageitem"
 
 function RoomSelector(prop:any) {
-    //const [room,setRoom] = useState<Array<roomitem>>([]);
-    /* useEffect(() => {
-        getRoom();
-    },[]); */
-    // list={prop.getRoom} 
-    // make={prop.makeRoom} 
-    // join={prop.enterRoom}
 
     const searchRoom = () => {}
 
@@ -26,7 +19,7 @@ function RoomSelector(prop:any) {
             <button onClick={prop.make}>Add room</button>
 
             <br/>
-            <button onClick={prop.list}>Refresh</button>
+            <button onClick={prop.refresh}>Refresh</button>
             <br/><br/><br/>
 
             <table>
@@ -37,9 +30,10 @@ function RoomSelector(prop:any) {
                 </thead>
                 <tbody>
                 {
-                    prop.list.map((item: any, key: any) => {
+                    prop.list.map( (item: any, key: any) => {
+                        console.log(item);
                         return <RoomItem key={key} items={item} join={prop.join}/>
-                    })
+                    }) 
                 }
                 </tbody>
             </table>
@@ -48,6 +42,15 @@ function RoomSelector(prop:any) {
     </>
 }
 
+
+//const [room,setRoom] = useState<Array<roomitem>>([]);
+/* useEffect(() => {
+    getRoom();
+},[]); */
+// list={prop.getRoom} 
+// make={prop.makeRoom} 
+// join={prop.enterRoom}
+    
 /*
 let getRoom = () => {
     let roomtab : Array<roomitem> = [];

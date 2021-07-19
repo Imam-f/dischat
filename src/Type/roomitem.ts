@@ -21,9 +21,11 @@ export class roomitemcomponent {
     }
 }
 
+/*
 export class roomlist {
     rooms: string[];
     constructor(rooms: string[]) {
         this.rooms = rooms;
     }
 }
+*/

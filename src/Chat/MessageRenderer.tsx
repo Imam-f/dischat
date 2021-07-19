@@ -3,7 +3,7 @@ import { messageitem } from "../type/messageitem";
 
 function MessageRenderer(prop: any) {
     return <>
-        {prop.message.map((msg : any) => {
+        {prop.message.messageList.map((msg : any) => {
             return <div>{msg}</div>;
         })}
     </>
