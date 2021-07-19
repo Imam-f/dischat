@@ -11,7 +11,7 @@ function RoomSelector(prop:any) {
 
     const searchRoom = () => {}
     const chUser = (e:React.SyntheticEvent) => {
-        prop.user.name = name;
+        prop.setuser(name);
         e.preventDefault();
         flip(!renderswitch);
     };

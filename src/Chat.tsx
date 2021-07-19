@@ -12,7 +12,7 @@ function Chat(prop:any) {
                 leave={prop.leaveRoom}/> 
             : 
             <RoomSelector 
-                user = {prop.user}
+                user = {prop.user} setuser={prop.setuser}
                 list={prop.roomList} make={prop.makeRoom} refresh={prop.getRoom}
                 join={prop.enterRoom}/> }
         </main>

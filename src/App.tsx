@@ -20,19 +20,23 @@ import "./css/layout.css"
 
 
 var globalRoomList : Array<roomitem> = [];
-const ws = new websocket("ws://localhost:8081");
-ws.onmessage = (e) => {
-    let messageType : string = e.toString();
+try {
+    const ws = new websocket("ws://localhost:8081");
+    ws.onmessage = (e) => {
+        let messageType : string = e.toString();
 
-    switch (messageType) {
-        case "RoomList":
-        case "EnterRoom":
-        case "NewMessage":
-        default:
-            break;
+        switch (messageType) {
+            case "RoomList":
+                // Parse room
+            case "EnterRoom":
+            case "NewMessage":
+            default:
+                break;
+        }
     }
-}
+} catch (e) {
 
+}
 
 
 function App() {
@@ -96,7 +100,7 @@ function App() {
                     getRoom={getRoom} makeRoom={makeRoom}
                     leaveRoom={leaveRoom} enterRoom={enterRoom} 
                     messageList={messageList}
-                    user={user}/>
+                    user={user} setuser={setUser}/>
             </Route>
         </Switch>
         </Router>
