@@ -27,7 +27,7 @@ function App() {
         let messageType : string = msg.messageType(e);
     
         switch (messageType) {
-            case "NewRoom":
+            case "RoomList":
             case "EnterRoom":
             case "NewMessage":
             default:
