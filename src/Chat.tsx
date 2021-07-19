@@ -7,7 +7,12 @@ function Chat(prop:any) {
         <main className="maincontent">
         Chat
         <br/>
-            { prop.isInRoom ? <ChatRoom roomData={prop.roomDataState} leave={prop.leaveRoom}/> : <RoomSelector join={prop.enterRoom}/> }
+            { prop.isInRoom ? 
+            <ChatRoom messageStore={prop.messageStore} roomData={prop.roomDataState} 
+                leave={prop.leaveRoom}/> 
+            : 
+            <RoomSelector list={prop.getRoom} make={prop.makeRoom} 
+                join={prop.enterRoom}/> }
         </main>
     </>
 }

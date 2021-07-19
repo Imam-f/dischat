@@ -4,32 +4,17 @@ import RoomItem from "./RoomItem"
 import { messageitem } from "../type/messageitem"
 
 function RoomSelector(prop:any) {
-    const [room,setRoom] = useState<Array<roomitem>>([]);
-
-    useEffect(() => {
+    //const [room,setRoom] = useState<Array<roomitem>>([]);
+    /* useEffect(() => {
         getRoom();
-    },[]);
-    
-    let getRoom = () => {
-        let roomtab : Array<roomitem> = [];
-        roomtab.push(new roomitem(
-            5, 
-            "what is room",
-            "myself", 
-            "kshdlfhs8283"
-        )); roomtab.push(new roomitem(
-            7, 
-            "is room",
-            "who", 
-            "kshddhkahs8283"
-        )); roomtab.push(new roomitem(
-            2, 
-            "what room",
-            "me", 
-            "kshd435s8283"
-        ));
-        setRoom(roomtab);
-    }
+    },[]); */
+    // list={prop.getRoom} 
+    // make={prop.makeRoom} 
+    // join={prop.enterRoom}
+
+    prop.list = () => {}
+    prop.make = () => {}
+    const searchRoom = () => {}
     
     return <>
         <div>
@@ -37,15 +22,16 @@ function RoomSelector(prop:any) {
                 <input type="search" placeholder="Add name"/>
                 <button>Set</button>
             </div>
-            <button onClick={getRoom}>Add room</button>
+            <button onClick={prop.getRoom}>Add room</button>
             <input type="search"/>
-            <button onClick={getRoom}>Search</button>
+            <button onClick={searchRoom}>Search</button>
             <br/>
-            <button onClick={getRoom}>Refresh</button>
+            <button onClick={prop.getRoom}>Refresh</button>
+
+            <br/>
+            <br/>
+            <br/>
             
-            <br/>
-            <br/>
-            <br/>
             <table>
                 <thead>
                     <tr>
@@ -54,7 +40,7 @@ function RoomSelector(prop:any) {
                 </thead>
                 <tbody>
                 {
-                    room.map((item, key) => {
+                    prop.list.map((item: any, key: any) => {
                         return <RoomItem key={key} items={item} join={prop.join}/>
                     })
                 }
@@ -65,6 +51,28 @@ function RoomSelector(prop:any) {
     </>
 }
 
+/*
+let getRoom = () => {
+    let roomtab : Array<roomitem> = [];
+    roomtab.push(new roomitem(
+        5, 
+        "what is room",
+        "myself", 
+        "kshdlfhs8283"
+    )); roomtab.push(new roomitem(
+        7, 
+        "is room",
+        "who", 
+        "kshddhkahs8283"
+    )); roomtab.push(new roomitem(
+        2, 
+        "what room",
+        "me", 
+        "kshd435s8283"
+    ));
+    setRoom(roomtab);
+}
+*/
 
 // flyout if no name
 // search

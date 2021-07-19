@@ -1,7 +1,12 @@
 import React from "react";
+import { messageitem } from "../type/messageitem";
 
 function MessageRenderer(prop: any) {
-    return <div className="msgself"> {prop.message}</div>
+    return <>
+        {prop.message.map((msg : any) => {
+            return <div>{msg}</div>;
+        })}
+    </>
 }
 
 export default MessageRenderer;

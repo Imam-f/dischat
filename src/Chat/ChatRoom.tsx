@@ -1,8 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import logo from "../logo.svg";
 import MessageRenderer from "./MessageRenderer";
+import { messageitem } from "../type/messageitem";
 
 function ChatRoom(prop:any) {
+    // Roomdata
+    // leave
+    // messageStore
+
+    const [message, getMessage] = useState<messageitem>();
+    prop.messageStore = (m:any) => {
+        getMessage(m);
+    }
+
     return <>
         <br/>
         <button onClick={prop.leave}>Exit</button>
@@ -19,7 +29,7 @@ function ChatRoom(prop:any) {
 
             <div className="d">
                 <div>
-                    <MessageRenderer message={"prop.message"}/>
+                    <MessageRenderer message={message}/>
                 </div>
             </div>
 

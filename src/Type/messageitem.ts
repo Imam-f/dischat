@@ -2,10 +2,11 @@ import { IMessageEvent } from "websocket";
 
 export class messageitem {
     type : string;
-    [payload : string] : any;
+    messageList : string[];
 
-    constructor(type : string) {
-        this.type = type
+    constructor(type : string, messageList : string[]) {
+        this.type = type;
+        this.messageList = messageList;
     }
 }
 

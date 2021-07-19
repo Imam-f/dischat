@@ -5,6 +5,7 @@ import {w3cwebsocket as websocket} from "websocket";
     
 import {roomitem} from './type/roomitem';
 import * as msg from './type/messageitem';
+import {useritem} from './type/useritem';
 
 import Chat from './Chat';
 import Help from './Help';
@@ -21,6 +22,7 @@ function App() {
     const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == undefined ? false : true );
     const [roomDataState,setRoomDataState] = useState<roomitem>( window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? "") );
     const [messageList,setMessageList] = useState<Array<msg.messageitem>>([]);
+    const [user,setUser] = useState<useritem>();
 
     const ws = new websocket("ws://localhost:8081");
     ws.onmessage = (e) => {
@@ -35,9 +37,8 @@ function App() {
         }
     }
 
-    const getRoom = () => {
-        
-    }
+    const getRoom = () => {}
+    const makeRoom = () => {}
     const enterRoom = (room : roomitem) => {
         setInRoom(true);
         setRoomDataState(room);
@@ -49,6 +50,8 @@ function App() {
         window.localStorage.removeItem("inRoom");
         window.localStorage.removeItem("room");
     }
+
+    const messageStore = () => {}
 
     return <>
         <Router>
@@ -69,7 +72,9 @@ function App() {
             <Route path="/about"><About/></Route>
             <Route path="/">
                 <Chat isInRoom={isInRoom} roomDataState={roomDataState} 
-                    leaveRoom={leaveRoom} enterRoom={enterRoom} />
+                    getRoom={getRoom} makeRoom={makeRoom}
+                    leaveRoom={leaveRoom} enterRoom={enterRoom} 
+                    messageStore={messageStore}/>
             </Route>
         </Switch>
         </Router>
