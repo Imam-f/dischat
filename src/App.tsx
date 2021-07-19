@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import {BrowserRouter as Router, Switch, 
     Route, Link} from "react-router-dom";
 import {w3cwebsocket as websocket} from "websocket";
-    
+
 // import {roomitem,roomlist} from './type/roomitem';
 import {roomitem} from './type/roomitem';
 import {messageitem} from './type/messageitem';
@@ -41,7 +41,7 @@ function App() {
     
     const [roomList,setRoomList] = useState<Array<roomitem>>([]);
     const [messageList,setMessageList] = useState<messageitem>(new messageitem("a",["a","coeg","coba"]));
-    const [user,setUser] = useState<useritem>();
+    const [user,setUser] = useState<useritem>(new useritem("myself",""));
 
     useEffect(() => {
         getRoom();
@@ -95,7 +95,8 @@ function App() {
                     roomList = {roomList}
                     getRoom={getRoom} makeRoom={makeRoom}
                     leaveRoom={leaveRoom} enterRoom={enterRoom} 
-                    messageList={messageList}/>
+                    messageList={messageList}
+                    user={user}/>
             </Route>
         </Switch>
         </Router>

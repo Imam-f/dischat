@@ -11,7 +11,9 @@ function Chat(prop:any) {
             <ChatRoom messageList={prop.messageList} roomData={prop.roomDataState} 
                 leave={prop.leaveRoom}/> 
             : 
-            <RoomSelector list={prop.roomList} make={prop.makeRoom} refresh={prop.getRoom}
+            <RoomSelector 
+                user = {prop.user}
+                list={prop.roomList} make={prop.makeRoom} refresh={prop.getRoom}
                 join={prop.enterRoom}/> }
         </main>
     </>
