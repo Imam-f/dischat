@@ -1,24 +1,40 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef, FormEvent} from "react";
+import { render } from "react-dom";
 import RoomItem from "./RoomItem"
 // import { roomitem } from "../type/roomitem";
 // import { messageitem } from "../type/messageitem"
 
 function RoomSelector(prop:any) {
 
+    const [name,setName] = useState("");
+    const [renderswitch,flip] = useState(false);
+
     const searchRoom = () => {}
+    const chUser = (e:React.SyntheticEvent) => {
+        prop.user.name = name;
+        e.preventDefault();
+        flip(!renderswitch);
+    };
+    const nameHandle = (e:any) => {
+        setName(e.target.value);
+    }
 
     return <>
         <div>
             <div>
-                <input type="search" placeholder="Add name"/>
-                <button>Set</button>
+                <form>
+                    <input type="search" onChange={nameHandle} 
+                        placeholder="Add name"/>
+                    <button onClick={chUser}>Set</button>
+                    <span>{prop.user.name}{name}</span>
+                </form>
             </div>
 
-            <input type="search"/>
+            <input type="search" placeholder="Room Name"/>
             <button onClick={searchRoom}>Search</button>
             <button onClick={prop.make}>Add room</button>
 
-            <br/>
+            <br/><br/>
             <button onClick={prop.refresh}>Refresh</button>
             <br/><br/><br/>
 
