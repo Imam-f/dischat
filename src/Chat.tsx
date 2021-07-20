@@ -9,7 +9,7 @@ function Chat(prop:any) {
         <br/>
             { prop.isInRoom ? 
             <ChatRoom messageList={prop.messageList} roomData={prop.roomDataState} 
-                leave={prop.leaveRoom}/> 
+                leave={prop.leaveRoom} user={prop.user}/> 
             : 
             <RoomSelector 
                 user = {prop.user} setuser={prop.setuser}

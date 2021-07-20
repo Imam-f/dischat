@@ -29,7 +29,7 @@ ws.onmessage = messageHandler;
 function messageHandler(e: any) {
     let messageReceived = JSON.parse(e.data.toString());
     let messageType = messageReceived.type;
-    console.log("Message", e.data);
+    console.log("Message -- data", e.data);
 
     switch (messageType) {
         case "RoomList":
@@ -58,7 +58,9 @@ function messageHandler(e: any) {
             break;
 
         case "NewMessage":
+            console.log("New",messageReceived);
             roomPromise[3](messageReceived.data);
+            break;
             // Parse message
 
         case "ping":
@@ -66,6 +68,7 @@ function messageHandler(e: any) {
             break;
 
         default:
+            console.log("Miss",messageReceived)
             break;
     }
 }
@@ -191,7 +194,7 @@ function App() {
                 roomPromise[3] = resolve;
             });
             msgTemp.then((res : any) => {
-                console.log(res);
+                console.log("Res",res);
                 let msgList : Array<messageitem> = [];
                 res.map((msgitem : any) => {
                     msgList.push(msgitem);
@@ -208,8 +211,8 @@ function App() {
                 sender: user
             }
             ws.send(JSON.stringify(msg));
-            getMessage();
         }
+        getMessage();
     }
 
     return <>
