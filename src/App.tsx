@@ -49,6 +49,9 @@ ws.onmessage = (e) => {
             // Rerender component
             roomPromise[1](messageReceived.data[1]);
             break;
+        case "MakeRoom":
+            roomPromise[2](messageReceived.data);
+            break;
         case "NewMessage":
             // Parse message
         case "ping":
@@ -93,9 +96,33 @@ function App() {
             flip(!renderSwitch);
         })
     }
-    const makeRoom = () => {
+    const makeRoom = (e:any) => {
         // makeroom
         // enterrrom
+        if(ws.readyState == ws.OPEN) {
+            let msg = {
+                type: "RoomMake",
+                payload: {
+                    name: e,
+                    creator: user.name
+                },
+                sender: user
+            }
+            console.log("PreRoomMake",JSON.stringify(msg));
+            ws.send(JSON.stringify(msg));
+            var roomdata = new Promise((resolve, reject)=> {
+                roomPromise[2] = resolve;
+            })
+            roomdata.then((room:any)=>{
+                let temp = new roomitem(room.id,room.name,room.creator,room.code);
+                console.log("RoomMake",temp);
+                setRoomDataState(temp);
+                setInRoom(true);
+                joinedRoom = roomDataState;
+                window.localStorage.setItem("inRoom","true");
+                window.localStorage.setItem("room",JSON.stringify(joinedRoom));
+            });
+        }
     }
     const enterRoom = (room : roomitem) => {
         if(ws.readyState == ws.OPEN) {
