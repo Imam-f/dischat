@@ -46,6 +46,8 @@ function RoomSelector(prop:any) {
                 </thead>
                 <tbody>
                 {
+                    prop.list.length == 0 ?
+                    <div>Emptyroom</div> :
                     prop.list.map( (item: any, key: any) => {
                         console.log("Down here",item);
                         return <RoomItem key={key} items={item} join={prop.join}/>
