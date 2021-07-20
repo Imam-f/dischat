@@ -23,7 +23,7 @@ var globalRoomList : Array<roomitem> = [];
 var joinedRoom : roomitem | null = window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? "");
 var localuser : useritem = new useritem("myself","");
 
-const ws = new websocket("ws://localhost:8081");
+let ws = new websocket("ws://localhost:8081");
 ws.onmessage = (e) => {
     let messageReceived = JSON.parse(e.data.toString());
     let messageType = messageReceived.type;
@@ -47,7 +47,7 @@ ws.onmessage = (e) => {
         case "EnterRoom":
             // Parse room
             // Rerender component
-            roomPromise[1]("resolve");
+            roomPromise[1](messageReceived.data[1]);
             break;
         case "NewMessage":
             // Parse message
@@ -104,18 +104,22 @@ function App() {
                 payload: room,
                 sender: user
             }
-            console.log(JSON.stringify(msg));
+            console.log("enterroom send",JSON.stringify(msg));
             ws.send(JSON.stringify(msg));
             let enterroom = new Promise((resolve, reject)=>{
                 roomPromise[1] = resolve;
             })
-            enterroom.then(()=> {
+            enterroom.then((result : any)=> {
+                console.log("result",result);
+                room.id = result;
                 setRoomDataState(room);
                 setInRoom(true);
                 joinedRoom = roomDataState;
                 window.localStorage.setItem("inRoom","true");
                 window.localStorage.setItem("room",JSON.stringify(joinedRoom));
             });
+        } else {
+            ws = new websocket("ws://localhost:8081");
         }
     }
     const leaveRoom = () => {
@@ -125,7 +129,7 @@ function App() {
                 payload: roomDataState,
                 sender: user
             }
-            console.log(JSON.stringify(msg));
+            console.log("leaveRoom",JSON.stringify(msg));
             ws.send(JSON.stringify(msg));
         }
         setInRoom(false);
