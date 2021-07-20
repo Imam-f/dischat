@@ -18,7 +18,7 @@ import "./css/skeleton.css"
 import "./css/normalize.css"
 import "./css/layout.css"
 
-
+var roomPromise : any[] = [];
 var globalRoomList : Array<roomitem> = [];
 var joinedRoom : roomitem | null = window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? "");
 var localuser : useritem = new useritem("myself","");
@@ -42,10 +42,18 @@ ws.onmessage = (e) => {
                 ));
                 globalRoomList = dataroom;
             })
+            roomPromise[0]("resolve");
+            break;
         case "EnterRoom":
             // Parse room
+            // Rerender component
+            roomPromise[1]("resolve");
+            break;
         case "NewMessage":
             // Parse message
+        case "ping":
+            ws.send(JSON.stringify({type:"pong"}));
+            break;
         default:
             break;
     }
@@ -67,33 +75,45 @@ function App() {
     },[])
     
     const getRoom = () => {
-        // comm with websocket
         let msg = {
             type: "RoomList",
-            payload: "nantonaku"
+            payload: ""
         }
         if(ws.readyState == ws.OPEN) {
             ws.send(JSON.stringify(msg));
         }
-        // let room : Array<roomitem> = [];
-        // for(let i=0; i<Math.random()*10; i++){
-        //     room.push(new roomitem(i,"a".repeat(Math.random()*5) + "a","aaaa","aaaaa"));
-        // }
-        // console.log("room",room);
-        // globalRoomList = room;
-        flip(!renderSwitch);
-        setRoomList(globalRoomList);
+        var roomdata = new Promise((resolve, reject) => {
+            roomPromise[0] = resolve;
+        });
+        roomdata.then(()=>{
+            setRoomList(globalRoomList);
+            flip(!renderSwitch);
+        })
     }
     const makeRoom = () => {
         // makeroom
         // enterrrom
     }
     const enterRoom = (room : roomitem) => {
-        setInRoom(true);
-        setRoomDataState(room);
-        joinedRoom = roomDataState;
-        window.localStorage.setItem("inRoom","true");
-        window.localStorage.setItem("room",JSON.stringify(room));
+        if(ws.readyState == ws.OPEN) {
+            let msg = {
+                type: "RoomEnter",
+                payload: room,
+                sender: user
+            }
+            console.log(JSON.stringify(msg));
+            ws.send(JSON.stringify(msg));
+            let enterroom = new Promise((resolve, reject)=>{
+                roomPromise[1] = resolve;
+            })
+            enterroom.then(()=> {
+                setRoomDataState(room);
+                setInRoom(true);
+                joinedRoom = roomDataState;
+                window.localStorage.setItem("inRoom","true");
+                window.localStorage.setItem("room",JSON.stringify(joinedRoom));
+            });
+        }
     }
     const leaveRoom = () => {
         setInRoom(false);

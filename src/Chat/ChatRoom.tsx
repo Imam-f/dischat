@@ -7,10 +7,6 @@ function ChatRoom(prop:any) {
     // Roomdata
     // leave
     // messageStore
-
-    const [message, getMessage] = useState<messageitem>(
-        new messageitem("a",["bb","ccc"])
-    );
     // prop.messageStore();
 
     return <>
