@@ -46,7 +46,7 @@ function messageHandler(e: any) {
             })
             roomPromise[0]("resolve");
             break;
-            
+
         case "EnterRoom":
             // Parse room
             // Rerender component
@@ -58,6 +58,7 @@ function messageHandler(e: any) {
             break;
 
         case "NewMessage":
+            roomPromise[3](messageReceived.data);
             // Parse message
 
         case "ping":
@@ -76,7 +77,7 @@ function App() {
                                                 new roomitem(0,"","","") : JSON.parse(window.localStorage.getItem("room") ?? ""));
 
     const [roomList,setRoomList] = useState<Array<roomitem>>([]);
-    const [messageList,setMessageList] = useState<messageitem>(new messageitem("a",["a","coeg","coba"]));
+    const [messageList,setMessageList] = useState<Array<messageitem>>();
     const [user,setUser] = useState<useritem>(localuser);
 
     const [renderSwitch,flip] = useState(true);
@@ -106,7 +107,7 @@ function App() {
     }
     const makeRoom = (e:any) => {
         // makeroom
-        // enterrrom
+        // enterrom
         if(ws.readyState == ws.OPEN) {
             let msg = {
                 type: "RoomMake",
@@ -116,6 +117,7 @@ function App() {
                 },
                 sender: user
             }
+            
             console.log("PreRoomMake",JSON.stringify(msg));
             ws.send(JSON.stringify(msg));
             var roomdata = new Promise((resolve, reject)=> {
@@ -123,6 +125,7 @@ function App() {
             })
             roomdata.then((room:any)=>{
                 let temp = new roomitem(room.id,room.name,room.creator,room.code);
+
                 console.log("RoomMake",temp);
                 setRoomDataState(temp);
                 setInRoom(true);
@@ -156,6 +159,7 @@ function App() {
                 console.log(joinedRoom, roomDataState, room, "correct");
                 window.localStorage.setItem("room",JSON.stringify(room));
             });
+            sendMessage("hen jana akjsdhfkashdlfkasdf");
         } else {
             ws = new websocket("ws://localhost:8081");
             ws.onmessage = messageHandler;
@@ -174,6 +178,38 @@ function App() {
         setInRoom(false);
         window.localStorage.removeItem("inRoom");
         window.localStorage.removeItem("room");
+    }
+    const getMessage = () => {
+        if(ws.readyState == ws.OPEN) {
+            let msg = {
+                type: "GetMessage",
+                sender: user
+            }
+            ws.send(JSON.stringify(msg));
+
+            let msgTemp = new Promise((resolve,reject) => {
+                roomPromise[3] = resolve;
+            });
+            msgTemp.then((res : any) => {
+                console.log(res);
+                let msgList : Array<messageitem> = [];
+                res.map((msgitem : any) => {
+                    msgList.push(msgitem);
+                });
+                setMessageList(msgList);
+            });
+        }
+    }
+    const sendMessage = (e:any) => {
+        if(ws.readyState == ws.OPEN) {
+            let msg = {
+                type: "SendMessage",
+                payload: e.toString(),
+                sender: user
+            }
+            ws.send(JSON.stringify(msg));
+            getMessage();
+        }
     }
 
     return <>

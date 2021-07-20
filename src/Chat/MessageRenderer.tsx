@@ -2,9 +2,12 @@ import React from "react";
 
 function MessageRenderer(prop: any) {
     return <>
-        {prop.message.messageList.map((msg : any, key:any) => {
-            return <div key={key}>{msg}</div>;
-        })}
+        {prop.message == undefined ? 
+            <div>No message</div> :
+            prop.message.messageList.map((msg : any, key:any) => {
+                return <div key={key}>{msg}</div>;
+            })
+        }
     </>
 }
 

@@ -1,12 +1,14 @@
 import { IMessageEvent } from "websocket";
 
 export class messageitem {
-    type : string;
-    messageList : string[];
+    sender : string;
+    date: string;
+    load : string;
 
-    constructor(type : string, messageList : string[]) {
-        this.type = type;
-        this.messageList = messageList;
+    constructor(sender : string, date: string, load: string) {
+        this.sender = sender;
+        this.date = date;
+        this.load = load;
     }
 }
 
