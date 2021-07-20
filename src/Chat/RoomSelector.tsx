@@ -7,16 +7,24 @@ import RoomItem from "./RoomItem"
 function RoomSelector(prop:any) {
 
     const [name,setName] = useState("");
+    const [searchbar,setSearch] = useState("");
     const [renderswitch,flip] = useState(false);
 
     const searchRoom = () => {}
     const chUser = (e:React.SyntheticEvent) => {
-        prop.setuser(name);
+        let usrtemp = {...prop.user};
+        usrtemp.name = [...name];
+
+        prop.setuser(usrtemp);
         e.preventDefault();
         flip(!renderswitch);
     };
     const nameHandle = (e:any) => {
         setName(e.target.value);
+    }
+    const searchHandle = (e:any) => {
+        e.preventDefault();
+        setSearch(e.target.value);
     }
 
     return <>
@@ -30,9 +38,11 @@ function RoomSelector(prop:any) {
                 </form>
             </div>
 
-            <input type="search" placeholder="Room Name"/>
-            <button onClick={searchRoom}>Search</button>
-            <button onClick={prop.make}>Add room</button>
+            <form>
+                <input type="search" onChange={searchHandle} placeholder="Room Name"/>
+                <button onClick={searchRoom}>Search</button>
+                <button onClick={(e)=>{prop.make(searchbar);e.preventDefault()}}>Add room</button>
+            </form>
 
             <br/><br/>
             <button onClick={prop.refresh}>Refresh</button>
