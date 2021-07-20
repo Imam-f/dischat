@@ -20,7 +20,8 @@ import "./css/layout.css"
 
 var roomPromise : any[] = [];
 var globalRoomList : Array<roomitem> = [];
-var refreshMessage = (e:any) => {};
+var refreshMessageApp = (e:any) => {};
+var fromPromise : boolean = false;
 var joinedRoom : roomitem = window.localStorage.getItem("room") == undefined ? 
                             new roomitem(0,"","","") : JSON.parse(window.localStorage.getItem("room") ?? "");
 var localuser : useritem = new useritem(window.localStorage.getItem("userName") ?? "defname", window.localStorage.getItem("userImg") ?? "");
@@ -58,11 +59,12 @@ function messageHandler(e: any) {
             break;
 
         case "NewMessage":
-            try {
+            console.log("Message",messageReceived, messageReceived.data);
+            if(fromPromise) {
                 roomPromise[3](messageReceived.data);
-            } catch (e) {
-                console.log("Error",e);
-                refreshMessage(messageReceived.data);
+                fromPromise = false;
+            } else {
+                refreshMessageApp(messageReceived.data);
             }
             break;
             // Parse message
@@ -160,6 +162,24 @@ function App() {
 
                 window.localStorage.setItem("inRoom","true");
                 window.localStorage.setItem("room",JSON.stringify(room));
+                
+                let msg = {
+                    type: "GetMessage",
+                    sender: user
+                }
+                ws.send(JSON.stringify(msg));
+
+                let msgTemp = new Promise((resolve,reject) => {
+                    fromPromise = true;
+                    roomPromise[3] = resolve;
+                });
+                msgTemp.then((res : any) => {
+                    let msgList : Array<messageitem> = [];
+                    res.map((msgitem : any) => {
+                        msgList.push(msgitem);
+                    });
+                    setMessageList(msgList);
+                });
             });
         } else {
             ws = new websocket("ws://localhost:8081");
@@ -189,6 +209,7 @@ function App() {
             ws.send(JSON.stringify(msg));
 
             let msgTemp = new Promise((resolve,reject) => {
+                fromPromise = true;
                 roomPromise[3] = resolve;
             });
             msgTemp.then((res : any) => {
@@ -200,9 +221,13 @@ function App() {
             });
         }
     }
-    refreshMessage = (res : any) => {
+    refreshMessageApp = (res : any) => {
         let msgList : Array<messageitem> = [];
-        res.map((msgitem : any) => {
+        console.log("up",typeof(res));
+        if(res.length == 0) return null;
+        console.log("down", res);
+
+        res.forEach((msgitem : any) => {
             msgList.push(msgitem);
         });
         setMessageList(msgList);

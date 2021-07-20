@@ -6,8 +6,8 @@ function MessageRenderer(prop: any) {
         bottom && bottom.current && bottom.current.scrollIntoView({behavior: "smooth"});
     })
     return <>
-        {(prop.message == undefined) ? 
-            <div>No message</div> :
+        {(prop.message == undefined || prop.message.length == 0) ? 
+            <div style={{color:"grey",opacity:"0.5"}}>No message</div> :
             prop.message.map((msg : any, key:any) => {
                 let isMe = msg.sender == prop.user.name ? "msgself" : "";
                 return <div key={key} className={isMe}>

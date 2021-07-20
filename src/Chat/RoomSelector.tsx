@@ -32,10 +32,10 @@ function RoomSelector(prop:any) {
         <div>
             <div>
                 <form>
+                    <span><h4>User : {prop.user.name}</h4></span>
                     <input type="search" onChange={nameHandle} 
                         placeholder="Add name"/>
                     <button onClick={chUser}>Set</button>
-                    <span>{prop.user.name}{name}</span>
                 </form>
             </div>
 
@@ -45,7 +45,6 @@ function RoomSelector(prop:any) {
                 <button onClick={(e)=>{prop.make(searchbar);e.preventDefault()}}>Add room</button>
             </form>
 
-            <br/><br/>
             <button onClick={prop.refresh}>Refresh</button>
             <br/><br/><br/>
 
@@ -61,7 +60,6 @@ function RoomSelector(prop:any) {
                         (searchbar.length < 1) ? prop.list.map( (item: any, key: any) => {
                             return <RoomItem key={key} items={item} join={prop.join}/>
                         }) : prop.list.filter((item:any) => {
-                            console.log(item);
                             return item.id.toString().toLowerCase().includes(searchbar) || item.name.toLowerCase().includes(searchbar) 
                                     || item.creator.toLowerCase().includes(searchbar) || item.code.toLowerCase().includes(searchbar);
                         }).map((item:any,key:any) => {
