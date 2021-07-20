@@ -46,19 +46,24 @@ function messageHandler(e: any) {
             })
             roomPromise[0]("resolve");
             break;
+            
         case "EnterRoom":
             // Parse room
             // Rerender component
             roomPromise[1](messageReceived.data[1]);
             break;
+
         case "MakeRoom":
             roomPromise[2](messageReceived.data);
             break;
+
         case "NewMessage":
             // Parse message
+
         case "ping":
             ws.send(JSON.stringify({type:"pong"}));
             break;
+
         default:
             break;
     }

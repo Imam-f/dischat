@@ -1,5 +1,4 @@
-import React, {useState, useEffect, useRef, FormEvent} from "react";
-import { render } from "react-dom";
+import React, {useState} from "react";
 import RoomItem from "./RoomItem"
 // import { roomitem } from "../type/roomitem";
 // import { messageitem } from "../type/messageitem"
@@ -58,15 +57,19 @@ function RoomSelector(prop:any) {
                 </thead>
                 <tbody>
                 {
-                    prop.list.length == 0 ?
-                    <tr><td/><td>Emptyroom</td></tr> :
-                    prop.list.map( (item: any, key: any) => {
-                        return <RoomItem key={key} items={item} join={prop.join}/>
-                    }) 
+                    (prop.list.length == 0) ?  <tr><td/><td>Emptyroom</td></tr> : 
+                        (searchbar.length < 1) ? prop.list.map( (item: any, key: any) => {
+                            return <RoomItem key={key} items={item} join={prop.join}/>
+                        }) : prop.list.filter((item:any) => {
+                            console.log(item);
+                            return item.id.toString().toLowerCase().includes(searchbar) || item.name.toLowerCase().includes(searchbar) 
+                                    || item.creator.toLowerCase().includes(searchbar) || item.code.toLowerCase().includes(searchbar);
+                        }).map((item:any,key:any) => {
+                            return <RoomItem key={key} items={item} join={prop.join}/>
+                        })
                 }
                 </tbody>
             </table>
-            
         </div>
     </>
 }
