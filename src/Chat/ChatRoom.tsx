@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useRef} from "react";
 import logo from "../logo.svg";
 import MessageRenderer from "./MessageRenderer";
 
@@ -7,30 +7,53 @@ function ChatRoom(prop:any) {
     // leave
     // messageStore
     // prop.messageStore();
+    const inputRef : any = useRef();
+    const [messageBox, typeMessageBox] = useState("");
+    const msgTyped = (e:any) => {
+        typeMessageBox(e.target.value);
+    }
+    const submitMsg = (e : any) => {
+        // submit
+        typeMessageBox("");
+        inputRef.current.value = "";
+        prop.sendMessage(messageBox);
+        e.preventDefault();
+    }
 
     return <>
         <br/>
         <button onClick={prop.leave}>Exit</button>
         <br/>
-        {prop.roomData.id} + {prop.roomData.name} + {prop.roomData.creator} + {prop.roomData.code}
+        {/*prop.roomData.id} + {prop.roomData.name} + {prop.roomData.creator} + {prop.roomData.code*/}
         <br/>
         <br/>
         <br/>
         
+
+        <form>
         <div className="chatbox">
             <img src={logo} className="a"/>
-            <div className="b">Username</div>
-            <div className="c">Room</div>
+            <div className="b">{prop.user.name}</div>
+            <div className="c">{prop.roomData.name}</div>
 
             <div className="d">
                 <div>
                     <MessageRenderer message={prop.messageList} user={prop.user}/>
                 </div>
             </div>
-
-            <div className="f"><input type="search" placeholder="Message"></input></div>
-            <div className="g"><button>Send</button></div>
+                <div className="f">
+                    <input type="search" placeholder="Message" onChange={msgTyped} 
+                        onKeyDown={(e : any) => {
+                            if(e.keyCode == 13) {
+                                return submitMsg; 
+                            }  else {
+                                return null
+                            }
+                        }} ref={inputRef ?? null}></input>
+                </div>
+                <div className="g"><button onClick={submitMsg}>Send</button></div>
         </div>
+        </form>
     </>
 }
 

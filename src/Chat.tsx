@@ -8,8 +8,8 @@ function Chat(prop:any) {
         Chat
         <br/>
             { prop.isInRoom ? 
-            <ChatRoom messageList={prop.messageList} roomData={prop.roomDataState} 
-                leave={prop.leaveRoom} user={prop.user}/> 
+            <ChatRoom messageList={prop.messageList} sendMessage={prop.sendMessage}
+                roomData={prop.roomDataState} leave={prop.leaveRoom} user={prop.user}/> 
             : 
             <RoomSelector 
                 user = {prop.user} setuser={prop.setuser}

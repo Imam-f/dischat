@@ -20,6 +20,7 @@ import "./css/layout.css"
 
 var roomPromise : any[] = [];
 var globalRoomList : Array<roomitem> = [];
+var refreshMessage = (e:any) => {};
 var joinedRoom : roomitem = window.localStorage.getItem("room") == undefined ? 
                             new roomitem(0,"","","") : JSON.parse(window.localStorage.getItem("room") ?? "");
 var localuser : useritem = new useritem(window.localStorage.getItem("userName") ?? "defname", window.localStorage.getItem("userImg") ?? "");
@@ -29,7 +30,6 @@ ws.onmessage = messageHandler;
 function messageHandler(e: any) {
     let messageReceived = JSON.parse(e.data.toString());
     let messageType = messageReceived.type;
-    console.log("Message -- data", e.data);
 
     switch (messageType) {
         case "RoomList":
@@ -58,8 +58,12 @@ function messageHandler(e: any) {
             break;
 
         case "NewMessage":
-            console.log("New",messageReceived);
-            roomPromise[3](messageReceived.data);
+            try {
+                roomPromise[3](messageReceived.data);
+            } catch (e) {
+                console.log("Error",e);
+                refreshMessage(messageReceived.data);
+            }
             break;
             // Parse message
 
@@ -121,7 +125,6 @@ function App() {
                 sender: user
             }
             
-            console.log("PreRoomMake",JSON.stringify(msg));
             ws.send(JSON.stringify(msg));
             var roomdata = new Promise((resolve, reject)=> {
                 roomPromise[2] = resolve;
@@ -129,7 +132,6 @@ function App() {
             roomdata.then((room:any)=>{
                 let temp = new roomitem(room.id,room.name,room.creator,room.code);
 
-                console.log("RoomMake",temp);
                 setRoomDataState(temp);
                 setInRoom(true);
                 joinedRoom = roomDataState;
@@ -146,23 +148,19 @@ function App() {
                 payload: room,
                 sender: user
             }
-            console.log("enterroom send",JSON.stringify(msg));
             ws.send(JSON.stringify(msg));
             let enterroom = new Promise((resolve, reject) => {
                 roomPromise[1] = resolve;
             })
             enterroom.then((result : any)=> {
-                console.log("result",result);
                 room.id = result;
                 setRoomDataState(Object.assign(room));
                 setInRoom(true);
                 joinedRoom = room;
 
                 window.localStorage.setItem("inRoom","true");
-                console.log(joinedRoom, roomDataState, room, "correct");
                 window.localStorage.setItem("room",JSON.stringify(room));
             });
-            sendMessage("hen jana akjsdhfkashdlfkasdf");
         } else {
             ws = new websocket("ws://localhost:8081");
             ws.onmessage = messageHandler;
@@ -175,9 +173,9 @@ function App() {
                 payload: roomDataState,
                 sender: user
             }
-            console.log("leaveRoom",JSON.stringify(msg));
             ws.send(JSON.stringify(msg));
         }
+        setMessageList([]);
         setInRoom(false);
         window.localStorage.removeItem("inRoom");
         window.localStorage.removeItem("room");
@@ -194,7 +192,6 @@ function App() {
                 roomPromise[3] = resolve;
             });
             msgTemp.then((res : any) => {
-                console.log("Res",res);
                 let msgList : Array<messageitem> = [];
                 res.map((msgitem : any) => {
                     msgList.push(msgitem);
@@ -203,6 +200,13 @@ function App() {
             });
         }
     }
+    refreshMessage = (res : any) => {
+        let msgList : Array<messageitem> = [];
+        res.map((msgitem : any) => {
+            msgList.push(msgitem);
+        });
+        setMessageList(msgList);
+    };
     const sendMessage = (e:any) => {
         if(ws.readyState == ws.OPEN) {
             let msg = {
@@ -237,7 +241,7 @@ function App() {
                     roomList = {roomList}
                     getRoom={getRoom} makeRoom={makeRoom}
                     leaveRoom={leaveRoom} enterRoom={enterRoom} 
-                    messageList={messageList}
+                    messageList={messageList} sendMessage={sendMessage}
                     user={user} setuser={setUser}/>
             </Route>
         </Switch>
