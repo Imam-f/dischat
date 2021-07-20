@@ -20,11 +20,13 @@ import "./css/layout.css"
 
 var roomPromise : any[] = [];
 var globalRoomList : Array<roomitem> = [];
-var joinedRoom : roomitem | null = window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? "");
-var localuser : useritem = new useritem("myself","");
+var joinedRoom : roomitem = window.localStorage.getItem("room") == undefined ? 
+                            new roomitem(0,"","","") : JSON.parse(window.localStorage.getItem("room") ?? "");
+var localuser : useritem = new useritem(window.localStorage.getItem("userName") ?? "defname", window.localStorage.getItem("userImg") ?? "");
 
 let ws = new websocket("ws://localhost:8081");
-ws.onmessage = (e) => {
+ws.onmessage = messageHandler;
+function messageHandler(e: any) {
     let messageReceived = JSON.parse(e.data.toString());
     let messageType = messageReceived.type;
     console.log("Message", e.data);
@@ -64,9 +66,10 @@ ws.onmessage = (e) => {
 
 
 function App() {
-    const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == undefined ? false : true );
-    const [roomDataState,setRoomDataState] = useState<roomitem>(window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? ""));
-    
+    const [isInRoom,setInRoom] = useState( (window.localStorage.getItem("inRoom") == undefined) || (!joinedRoom) ? false : true );
+    const [roomDataState,setRoomDataState] = useState<roomitem>(window.localStorage.getItem("room") == undefined ? 
+                                                new roomitem(0,"","","") : JSON.parse(window.localStorage.getItem("room") ?? ""));
+
     const [roomList,setRoomList] = useState<Array<roomitem>>([]);
     const [messageList,setMessageList] = useState<messageitem>(new messageitem("a",["a","coeg","coba"]));
     const [user,setUser] = useState<useritem>(localuser);
@@ -123,6 +126,7 @@ function App() {
                 window.localStorage.setItem("room",JSON.stringify(joinedRoom));
             });
         }
+        getRoom();
     }
     const enterRoom = (room : roomitem) => {
         if(ws.readyState == ws.OPEN) {
@@ -133,20 +137,23 @@ function App() {
             }
             console.log("enterroom send",JSON.stringify(msg));
             ws.send(JSON.stringify(msg));
-            let enterroom = new Promise((resolve, reject)=>{
+            let enterroom = new Promise((resolve, reject) => {
                 roomPromise[1] = resolve;
             })
             enterroom.then((result : any)=> {
                 console.log("result",result);
                 room.id = result;
-                setRoomDataState(room);
+                setRoomDataState(Object.assign(room));
                 setInRoom(true);
-                joinedRoom = roomDataState;
+                joinedRoom = room;
+
                 window.localStorage.setItem("inRoom","true");
-                window.localStorage.setItem("room",JSON.stringify(joinedRoom));
+                console.log(joinedRoom, roomDataState, room, "correct");
+                window.localStorage.setItem("room",JSON.stringify(room));
             });
         } else {
             ws = new websocket("ws://localhost:8081");
+            ws.onmessage = messageHandler;
         }
     }
     const leaveRoom = () => {
@@ -160,7 +167,6 @@ function App() {
             ws.send(JSON.stringify(msg));
         }
         setInRoom(false);
-        joinedRoom = null;
         window.localStorage.removeItem("inRoom");
         window.localStorage.removeItem("room");
     }

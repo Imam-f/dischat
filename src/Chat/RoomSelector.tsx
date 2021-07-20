@@ -13,9 +13,11 @@ function RoomSelector(prop:any) {
     const searchRoom = () => {}
     const chUser = (e:React.SyntheticEvent) => {
         let usrtemp = {...prop.user};
-        usrtemp.name = [...name];
+        usrtemp.name = name.toString();
 
         prop.setuser(usrtemp);
+        window.localStorage.setItem("userName",usrtemp.name);
+        window.localStorage.setItem("userImg",usrtemp.imageProfile);
         e.preventDefault();
         flip(!renderswitch);
     };
