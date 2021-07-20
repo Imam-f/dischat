@@ -62,7 +62,7 @@ ws.onmessage = (e) => {
 
 function App() {
     const [isInRoom,setInRoom] = useState( window.localStorage.getItem("inRoom") == undefined ? false : true );
-    const [roomDataState,setRoomDataState] = useState<roomitem>( window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? "") );
+    const [roomDataState,setRoomDataState] = useState<roomitem>(window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? ""));
     
     const [roomList,setRoomList] = useState<Array<roomitem>>([]);
     const [messageList,setMessageList] = useState<messageitem>(new messageitem("a",["a","coeg","coba"]));
@@ -72,6 +72,9 @@ function App() {
 
     useEffect(() => {
         getRoom();
+        if(window.localStorage.getItem("room") != undefined) {
+            enterRoom(JSON.parse(window.localStorage.getItem("room") ?? ""));
+        }
     },[])
     
     const getRoom = () => {
@@ -116,6 +119,15 @@ function App() {
         }
     }
     const leaveRoom = () => {
+        if(ws.readyState == ws.OPEN) {
+            let msg = {
+                type: "RoomExit",
+                payload: roomDataState,
+                sender: user
+            }
+            console.log(JSON.stringify(msg));
+            ws.send(JSON.stringify(msg));
+        }
         setInRoom(false);
         joinedRoom = null;
         window.localStorage.removeItem("inRoom");
