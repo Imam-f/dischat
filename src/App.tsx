@@ -20,22 +20,35 @@ import "./css/layout.css"
 
 
 var globalRoomList : Array<roomitem> = [];
-try {
-    const ws = new websocket("ws://localhost:8081");
-    ws.onmessage = (e) => {
-        let messageType : string = e.toString();
+var joinedRoom : roomitem | null = window.localStorage.getItem("room") == undefined ? null : JSON.parse(window.localStorage.getItem("room") ?? "");
+var localuser : useritem = new useritem("myself","");
 
-        switch (messageType) {
-            case "RoomList":
-                // Parse room
-            case "EnterRoom":
-            case "NewMessage":
-            default:
-                break;
-        }
+const ws = new websocket("ws://localhost:8081");
+ws.onmessage = (e) => {
+    let messageReceived = JSON.parse(e.data.toString());
+    let messageType = messageReceived.type;
+    console.log("Message", e.data);
+
+    switch (messageType) {
+        case "RoomList":
+            let dataroom : Array<roomitem> = [];
+            // Parse room
+            messageReceived.data.forEach((room : roomitem) => {
+                dataroom.push(new roomitem(
+                    room.id,
+                    room.name,
+                    room.creator,
+                    room.code
+                ));
+                globalRoomList = dataroom;
+            })
+        case "EnterRoom":
+            // Parse room
+        case "NewMessage":
+            // Parse message
+        default:
+            break;
     }
-} catch (e) {
-
 }
 
 
@@ -45,7 +58,9 @@ function App() {
     
     const [roomList,setRoomList] = useState<Array<roomitem>>([]);
     const [messageList,setMessageList] = useState<messageitem>(new messageitem("a",["a","coeg","coba"]));
-    const [user,setUser] = useState<useritem>(new useritem("myself",""));
+    const [user,setUser] = useState<useritem>(localuser);
+
+    const [renderSwitch,flip] = useState(true);
 
     useEffect(() => {
         getRoom();
@@ -53,12 +68,20 @@ function App() {
     
     const getRoom = () => {
         // comm with websocket
-        let room : Array<roomitem> = [];
-        for(let i=0; i<Math.random()*10; i++){
-            room.push(new roomitem(i,"a".repeat(Math.random()*5) + "a","aaaa","aaaaa"));
+        let msg = {
+            type: "RoomList",
+            payload: "nantonaku"
         }
-        console.log("room",room);
-        globalRoomList = room;
+        if(ws.readyState == ws.OPEN) {
+            ws.send(JSON.stringify(msg));
+        }
+        // let room : Array<roomitem> = [];
+        // for(let i=0; i<Math.random()*10; i++){
+        //     room.push(new roomitem(i,"a".repeat(Math.random()*5) + "a","aaaa","aaaaa"));
+        // }
+        // console.log("room",room);
+        // globalRoomList = room;
+        flip(!renderSwitch);
         setRoomList(globalRoomList);
     }
     const makeRoom = () => {
@@ -68,11 +91,13 @@ function App() {
     const enterRoom = (room : roomitem) => {
         setInRoom(true);
         setRoomDataState(room);
+        joinedRoom = roomDataState;
         window.localStorage.setItem("inRoom","true");
         window.localStorage.setItem("room",JSON.stringify(room));
     }
     const leaveRoom = () => {
         setInRoom(false);
+        joinedRoom = null;
         window.localStorage.removeItem("inRoom");
         window.localStorage.removeItem("room");
     }

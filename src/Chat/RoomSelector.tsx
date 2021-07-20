@@ -47,6 +47,7 @@ function RoomSelector(prop:any) {
                 <tbody>
                 {
                     prop.list.map( (item: any, key: any) => {
+                        console.log("Down here",item);
                         return <RoomItem key={key} items={item} join={prop.join}/>
                     }) 
                 }
