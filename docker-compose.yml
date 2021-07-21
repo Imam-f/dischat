@@ -12,12 +12,12 @@ services:
         image: postgres:13.3-alpine
         environment:
             POSTGRES_PASSWORD: example
-        # volumes:
-        #     - ../dischat_backend/init/:/docker-entrypoint-initdb.d/
+        volumes:
+            - ../dischat_database/init/init.sql:/docker-entrypoint-initdb.d/init.sql
     adminer:
         image: adminer
         ports:
-            - 8082:8080
+            - 8083:8080
 
 #version: "2.1"
 # services:
