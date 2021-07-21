@@ -1,0 +1,49 @@
+version: '3'
+services:
+    front:
+        build: .
+        ports:
+            - 8080:80
+    back:
+        build: "../dischat_backend"
+        ports:
+            - 8081:8081
+    db:
+        image: postgres:13.3-alpine
+        environment:
+            POSTGRES_PASSWORD: example
+        # volumes:
+        #     - ../dischat_backend/init/:/docker-entrypoint-initdb.d/
+    adminer:
+        image: adminer
+        ports:
+            - 8082:8080
+
+#version: "2.1"
+# services:
+#   blocky:
+#     image: spx01/blocky
+#     container_name: blocky
+#     restart: unless-stopped
+#     ports:
+#       - "53:53/tcp"
+#       - "53:53/udp"
+#       - "4000:4000/tcp" # Prometheus stats (if enabled).
+#     environment:
+#       - TZ=Europe/Berlin
+#     volumes:
+#       # config file
+#       - ./config.yml:/app/config.yml
+#       # write query logs in this volume
+#       - queryLogs:/logs
+#       # put your custom white and blacklists in these directories
+#       - ./blacklists:/app/blacklists/
+#       - ./whitelists:/app/whitelists/
+
+# volumes:
+#   queryLogs:
+#     driver: local
+#     driver_opts:
+#       type: cifs
+#       o: username=USER,password=PASSWORD,rw
+#       device: //NAS_HOSTNAME/blocky  
