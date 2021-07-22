@@ -1,12 +1,27 @@
 -- @block
-INSERT INTO room
+INSERT INTO room (name,creator,code)
 VALUES (
-    5,
     'hello',
+    'what',
+    'dfmasdf'
+),(
+    'hwo',
+    'what',
+    'dfmasdf'
+),(
+    'hiii',
     'what',
     'dfmasdf'
 );
 -- @block
 SELECT * FROM room;
 -- @block
-DELETE FROM room WHERE true;
+SELECT * FROM users;
+-- @block
+SELECT * FROM message;
+-- @block
+DELETE FROM users;
+-- @block
+DELETE FROM room;
+-- @block
+DELETE FROM message;
