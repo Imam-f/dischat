@@ -49,7 +49,7 @@ function RoomSelector(prop:any) {
                 <button onClick={(e)=>{prop.make(searchbar);e.preventDefault();setSearch("");searchBarRef.current.value="";}}>Add room</button>
             </form>
 
-            <button onClick={(e)=>{prop.refresh;setSearch("");searchBarRef.current.value="";}}>Refresh</button>
+            <button onClick={(e)=>{prop.refresh();setSearch("");searchBarRef.current.value="";}}>Refresh</button>
             <br/><br/><br/>
 
             <table>
