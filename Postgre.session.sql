@@ -1,17 +1,20 @@
 -- @block
-INSERT INTO room (name,creator,code)
+INSERT INTO room (id,name,creator,code)
 VALUES (
+    5,
     'hello',
     'what',
     'dfmasdf'
 ),(
+    6,
     'hwo',
     'what',
-    'dfmasdf'
+    'dfzxcvczf'
 ),(
+    40,
     'hiii',
     'what',
-    'dfmasdf'
+    'dfmaxcvdf'
 );
 -- @block
 SELECT * FROM room;
