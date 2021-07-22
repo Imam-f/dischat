@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import RoomItem from "./RoomItem"
 // import { roomitem } from "../type/roomitem";
 // import { messageitem } from "../type/messageitem"
@@ -9,7 +9,11 @@ function RoomSelector(prop:any) {
     const [searchbar,setSearch] = useState("");
     const [renderswitch,flip] = useState(false);
 
-    const searchRoom = () => {}
+    const searchBarRef: any = useRef();
+
+    const searchRoom = (e:any) => {
+        e.preventDefault();
+    }
     const chUser = (e:React.SyntheticEvent) => {
         let usrtemp = {...prop.user};
         usrtemp.name = name.toString();
@@ -40,12 +44,12 @@ function RoomSelector(prop:any) {
             </div>
 
             <form>
-                <input type="search" onChange={searchHandle} placeholder="Room Name"/>
+                <input ref={searchBarRef} type="search" onChange={searchHandle} placeholder="Room Name"/>
                 <button onClick={searchRoom}>Search</button>
-                <button onClick={(e)=>{prop.make(searchbar);e.preventDefault()}}>Add room</button>
+                <button onClick={(e)=>{prop.make(searchbar);e.preventDefault();setSearch("");searchBarRef.current.value="";}}>Add room</button>
             </form>
 
-            <button onClick={prop.refresh}>Refresh</button>
+            <button onClick={(e)=>{prop.refresh;setSearch("");searchBarRef.current.value="";}}>Refresh</button>
             <br/><br/><br/>
 
             <table>

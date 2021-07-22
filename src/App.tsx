@@ -111,14 +111,17 @@ function App() {
         }
         if(ws.readyState == ws.OPEN) {
             ws.send(JSON.stringify(msg));
+            var roomdata = new Promise((resolve, reject) => {
+                roomPromise[0] = resolve;
+            });
+            roomdata.then(()=>{
+                setRoomList(globalRoomList);
+                flip(!renderSwitch);
+            })
+        } else {
+            ws = new websocket("ws://localhost:8081");
+            ws.onmessage = messageHandler;
         }
-        var roomdata = new Promise((resolve, reject) => {
-            roomPromise[0] = resolve;
-        });
-        roomdata.then(()=>{
-            setRoomList(globalRoomList);
-            flip(!renderSwitch);
-        })
     }
     const makeRoom = (e:any) => {
         // makeroom
@@ -189,9 +192,6 @@ function App() {
                     getMessage();
                 });
             });
-        } else {
-            ws = new websocket("ws://localhost:8081");
-            ws.onmessage = messageHandler;
         }
     }
     const leaveRoom = () => {
@@ -227,6 +227,9 @@ function App() {
                 });
                 setMessageList(msgList);
             });
+        } else {
+            ws = new websocket("ws://localhost:8081");
+            ws.onmessage = messageHandler;
         }
     }
     refreshMessageApp = (res : any) => {

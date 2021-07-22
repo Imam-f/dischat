@@ -14,9 +14,9 @@ function ChatRoom(prop:any) {
     }
     const submitMsg = (e : any) => {
         // submit
-        typeMessageBox("");
-        inputRef.current.value = "";
         prop.sendMessage(messageBox);
+        inputRef.current.value = "";
+        typeMessageBox("");
         e.preventDefault();
     }
 
