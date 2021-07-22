@@ -3,7 +3,8 @@
 Personal project about making chat app that
 did not require login and chat history will
 be deleted in one hour after inactivity
-// note : last part hasn't been implemented
+
+> note : last part hasn't been implemented
 
 ## To run :
 IMPORTANT NOTE : change db password
