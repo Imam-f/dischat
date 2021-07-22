@@ -70,7 +70,12 @@ function messageHandler(e: any) {
             // Parse message
 
         case "ping":
-            ws.send(JSON.stringify({type:"pong"}));
+
+            let pingreturn = {
+                type: "GetMessage",
+                sender: localuser
+            };
+            ws.send(JSON.stringify(pingreturn));
             break;
 
         default:
