@@ -145,9 +145,10 @@ function App() {
                 joinedRoom = roomDataState;
                 window.localStorage.setItem("inRoom","true");
                 window.localStorage.setItem("room",JSON.stringify(joinedRoom));
+                
+                getRoom();
             });
         }
-        getRoom();
     }
     const enterRoom = (room : roomitem) => {
         if(ws.readyState == ws.OPEN) {
@@ -185,6 +186,7 @@ function App() {
                         msgList.push(msgitem);
                     });
                     setMessageList(msgList);
+                    getMessage();
                 });
             });
         } else {
@@ -248,7 +250,6 @@ function App() {
             console.log(JSON.stringify(msg));
             ws.send(JSON.stringify(msg));
         }
-        getMessage();
     }
 
     return <>
