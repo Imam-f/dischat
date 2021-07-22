@@ -13,7 +13,7 @@ If docker-compose is not installed run container
 based on the docker-compose.yml
 
 Clone three repo in the same folder :
-```
+```shell
 git clone https://github.com/Imam-f/dischat
 git clone https://github.com/Imam-f/dischat_backend
 git clone https://github.com/Imam-f/dischat-db
