@@ -30,8 +30,9 @@ let ws = new websocket("ws://localhost:8081");
 ws.onmessage = messageHandler;
 function messageHandler(e: any) {
     let messageReceived = JSON.parse(e.data.toString());
-    console.log(messageReceived);
+    console.log(e.data.toString());
     let messageType = messageReceived.type;
+    console.log("--");
 
     switch (messageType) {
         case "RoomList":
@@ -72,7 +73,7 @@ function messageHandler(e: any) {
         case "ping":
 
             let pingreturn = {
-                type: "GetMessage",
+                type: "pong",
                 sender: localuser
             };
             ws.send(JSON.stringify(pingreturn));
@@ -244,6 +245,7 @@ function App() {
                 payload: e.toString(),
                 sender: user
             }
+            console.log(JSON.stringify(msg));
             ws.send(JSON.stringify(msg));
         }
         getMessage();
