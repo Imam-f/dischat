@@ -30,6 +30,7 @@ let ws = new websocket("ws://localhost:8081");
 ws.onmessage = messageHandler;
 function messageHandler(e: any) {
     let messageReceived = JSON.parse(e.data.toString());
+    console.log(messageReceived);
     let messageType = messageReceived.type;
 
     switch (messageType) {
@@ -59,7 +60,6 @@ function messageHandler(e: any) {
             break;
 
         case "NewMessage":
-            console.log("Message",messageReceived, messageReceived.data);
             if(fromPromise) {
                 roomPromise[3](messageReceived.data);
                 fromPromise = false;
@@ -79,7 +79,7 @@ function messageHandler(e: any) {
             break;
 
         default:
-            console.log("Miss",messageReceived)
+            console.log("Miss")
             break;
     }
 }
