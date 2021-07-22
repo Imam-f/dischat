@@ -26,7 +26,7 @@ var joinedRoom : roomitem = window.localStorage.getItem("room") == undefined ?
                             new roomitem(0,"","","") : JSON.parse(window.localStorage.getItem("room") ?? "");
 var localuser : useritem = new useritem(window.localStorage.getItem("userName") ?? "defname", window.localStorage.getItem("userImg") ?? "");
 
-let ws = new websocket("ws://localhost:8081");
+let ws = new websocket("ws://back:8081");
 ws.onmessage = messageHandler;
 function messageHandler(e: any) {
     let messageReceived = JSON.parse(e.data.toString());

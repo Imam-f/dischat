@@ -9,9 +9,12 @@ services:
         ports:
             - 8081:8081
     db:
-        image: postgres:13.3-alpine
+        # image: postgres:13.3-alpine
+        build: "../dischat_database"
         environment:
             POSTGRES_PASSWORD: example
+        ports:
+            - 5432:5432
         volumes:
             - ../dischat_database/init/init.sql:/docker-entrypoint-initdb.d/init.sql
             - ../dischat_database/data:/var/lib/postgresql/data
