@@ -20,9 +20,14 @@ git clone https://github.com/Imam-f/dischat_backend
 git clone https://github.com/Imam-f/dischat-db
 ```
 
+Install npm
+Install dependency
+Build the front end
+Rename dischat_db into dischat_database
+
 Then run :
 ```
-docker-compose -d up
+docker-compose up -d --build
 ```
 
 Then open :
